@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>遍历DOM</title>
+</head>
+
+<body>
+    <!-- 
+        1.祖先
+        向上遍历DOM树
+        -parent()  返回被选元素的直接父元素 该方法只会向上一级对DOM树进行遍历
+        -parents()  返回被选元素的所有祖先元素 一路向上直到文档的根元素<html>
+        -parentsUntil()  返回介于两个给定元素之间的所有祖先元素
+     -->
+    <script>
+        $(document).ready(function () {
+            $('span').parent()
+        })
+        $(document).ready(function () {
+            $("span").parents();
+        });
+        // 可选用参数来过滤对祖先元素的搜索 返回所有<span>元素的所有祖先，并且是<ul>元素
+        $(document).ready(function () {
+            $("span").parents('ul');
+        });
+        // 返回介于<span>元素和<div>元素之间的所有祖先元素
+        $(document).ready(function () {
+            $('span').parentsUntil('div')
+        })
+    </script>
+
+    <!-- 
+        2.后代
+        向下遍历DOM树
+        -children()  返回被选元素的所有直接子元素  该方法只会向下一级对DOM进行遍历
+        -find()  返回被选元素的后台子元素，一直到最后一个后代
+     -->
+    <script>
+        $(document).ready(function () {
+            $("div").children();
+        });
+        // 可选用参数来过滤对子元素的搜索  返回类名为“1”的所有<p>元素，并且它们是<div>的直接子元素
+        $(document).ready(function(){
+            $('div').children('p.1')
+        })
+
+        // 返回属于<div>后代的所有<span>元素
+        $(document).ready(function(){
+            $('div').find('span')
+        })
+        // 返回属于<div>的所有后代
+        $(document).ready(function(){
+            $('div').find('*')
+        })
+    </script>
+
+    <!-- 
+        3.同胞
+        在DOM树中水平遍历
+        -siblings()  返回被选元素的所有同胞元素
+        -next()  返回被选元素的下一个同胞元素 该方法只返回一个元素
+        -nextAll()  返回被选元素的所有跟随的同胞元素
+        -nextUntil()  返回介于两个给定参数之间的所有跟随的同胞元素
+        
+        -prev()
+        -prevAll()
+        -prevUnitl()
+        与上边方法类似，返回的是前面的同胞元素
+     -->
+    <script>
+        // 返回<h2>的所有同胞元素
+        $(document).ready(function(){
+            $('h2').siblings()
+        })
+        // 返回<h2>的同胞元素的所有<p>元素
+        $(document).ready(function(){
+            $('h2').siblings('p')
+        })
+        // 返回<h2>的下一个同胞元素
+        $(document).ready(function(){
+            $('h2').next()
+        })
+        // 返回<h2>的所有跟随的同胞元素
+        $(document).ready(function(){
+            $('h2').nextAll()
+        })
+        // 返回介于<h2>和<h6>元素之间的所有同胞元素
+        $(document).ready(function(){
+            $('h2').nextUntil('h6')
+        })
+    </script>
+
+    <!-- 
+        4.过滤
+        缩小搜索元素的范围
+        允许基于在一组元素中的位置来选择一个特定元素
+        -first()  返回被选元素的首个元素
+        -last()  返回被选元素的最后一个元素
+        -eq()  返回被选元素中带有指定索引号的元素  索引号从0开始
+
+        允许选取匹配或不匹配某项指定标准的元素
+        -filter()  不匹配这个标准的元素会被从集合中删除，返回匹配的元素
+        -not()  返回不匹配标准的所有元素
+     -->
+    <script>
+        // !!!! 选取首个<div>元素内部的第一个<p>元素
+        $(document).ready(function(){
+            $('div p').first()
+        })
+        // !!!! 选取最后一个<div>元素中的最后一个<p>元素
+        $(document).ready(function(){
+            $('div p').last()
+        })
+        // 选取第二个<p>元素（索引号为1）
+        $(document).ready(function(){
+            $('p').eq(1)
+        })
+
+        // 返回带有类名"intro"的所有<p>元素
+        $(document).ready(function(){
+            $('p').filter('.intro')
+        })
+
+        // 返回不带类名"intro"的所有<p>元素
+        $(document).ready(function(){
+            $('p').not('.intro')
+        })
+    </script>
+</body>
+
+</html>

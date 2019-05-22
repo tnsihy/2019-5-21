@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+        1.隐藏hide()与显示show()
+        $(selector).hide(speed,callback)
+        $(selector).show(speed,callback)
+        speed 可以取值"slow" "fast" 或者毫秒数(例如3000）
+     -->
+    <script>
+        $("#hide").click(function () {
+            $("p").hide()
+        })
+        $("#show").click(function () {
+            $("p").show()
+        })
+    </script>
+
+    <!-- 
+        2.toggle()方法来切换隐藏与显示
+        $(selector).toggle(speed,callback)
+     -->
+    <script>
+        $("button").click(function () {
+            $("p").toggle()
+        })
+    </script>
+
+    <!-- 
+         3.淡入与淡出 fadeIn() fadeOut() fadeToggle() fadeTo()
+         fadeIn() 用于淡入已隐藏的元素  $(selector).fadeIn(speed,callback)
+         fadeOut() 用于淡出可见元素  $(selector).fadeOut(speed,callback)
+         fadeToggle() 用于切换fadeIn()和fadeOut()  $(selector).fadeToggle(speed,callback)
+         fadeTo() 允许渐变为给定的不透明度（值介于0和1之间）  $(selector).fadeTo(speed,opacity,callback) 
+      -->
+    <script>
+        $("button").click(function () {
+            $("#div1").fadeIn()
+            $("#div2").fadeIn("slow")
+            $("#div3").fadeIn(3000)
+        })
+
+        $("button").click(function () {
+            $("#div1").fadeOut()
+            $("#div2").fadeOut("slow")
+            $("#div3").fadeOut(3000)
+        })
+
+        $("button").click(function () {
+            $("#div1").fadeToggle();
+            $("#div2").fadeToggle("slow");
+            $("#div3").fadeToggle(3000);
+        });
+
+        $("button").click(function () {
+            $("#div1").fadeTo("slow", 0.15);
+            $("#div2").fadeTo("slow", 0.4);
+            $("#div3").fadeTo("slow", 0.7);
+        });
+    </script>
+
+    <!-- 
+        4.滑动
+        slideDown()方法用于向下滑动元素  $(selector).slideDown(speed,callback)
+        slideUp()方法用于向上滑动元素  $(selector).slideUp(speed,callback)
+        slideToggle()方法切换slideDown()与slideUp()方法 $(selector).slideToggle(speed,callback)
+     -->
+    <script>
+        $("#flip").click(function () {
+            $("panel").slideDown()
+        })
+        $("#flip").click(function () {
+            $("panel").slideUp()
+        })
+        $("#flip").click(function () {
+            $("#panel").slideToggle();
+        });
+    </script>
+
+    <!-- 
+         5.动画
+         通过animate()方法用于自定义动画
+         $(selector).animate({params},speed,callback)   param参数定义形成动画的css属性
+         当使用 animate()时，必须使用 Camel 标记法书写所有的属性名，比如，必须使用 paddingLeft 而不是 padding-left，使用 marginRight 而不是 margin-right，
+      -->
+    <script>
+        //操作多个属性
+        $("button").click(function () {
+            $("div").animate({
+                left: '250px',
+                opacity: '0.5',
+                height: '150px',
+                width: '150px'
+            })
+        })
+        //使用相对值
+        $("button").click(function () {
+            $("div").animate({
+                left: '250px',
+                height: '+=150px',
+                width: '+=150px'
+            })
+        })
+        //使用预定义的值
+        $("button").click(function () {
+            $("div").animate({
+                height: 'toggle'
+            })
+        })
+        //使用队列功能
+        $("button").click(function () {
+            var div = $("div")
+            div.animate({
+                height: '300px',
+                opacity: '0.4',
+                speed: 'slow'
+            });
+            div.animate({
+                height: '300px',
+                opacity: '0.8',
+                speed: 'slow'
+            });
+            div.animate({
+                height: '100px',
+                opacity: '0.4',
+                speed: 'slow'
+            });
+            div.animate({
+                height: '100px',
+                opacity: '0.8',
+                speed: 'slow'
+            });
+        })
+    </script>
+
+    <!-- 
+          6.停止动画 stop()  $(selector).stop(stopAll,goToEnd)
+          可选的stopAll参数规定是否应该清除动画队列，默认是false，即仅停止活动的动画，允许任何排入队列的动画向后执行
+          可选的goToEnd参数规定是否立即完成当前动画，默认是false
+       -->
+    <script>
+        $("#stop").click(function () {
+            $("#panel").stop();
+        });
+
+        $(document).ready(function () {
+            // 点击 "开始" 按钮开始动画。两个动画。
+            $("#start").click(function () {
+                $("div").animate({
+                    left: '100px'
+                }, 5000);
+                $("div").animate({
+                    fontSize: '3em'
+                }, 5000);
+            });
+
+            // 点击 "停止" 按钮停止当前激活的动画，但之后我们能再动画队列中再次激活。
+            $("#stop").click(function () {
+                $("div").stop();
+            });
+
+            // 点击 "停止所有" 按钮停止当前动画，并清除动画队列，所以元素的所有动画都会停止。
+            $("#stop2").click(function () {
+                $("div").stop(true);
+            });
+
+            // 点击 "停止动画，但完成动作" 快速完成动作，并停止它。
+            $("#stop3").click(function () {
+                $("div").stop(true, true);
+            });
+        })
+    </script>
+
+    <!-- 
+        7.Chaining可以把动作/方法链接在一起
+        Chaining允许我们在一条语句中运行多个jQuery方法（在相同元素上）
+     -->
+    <script>
+        $("#p1").css("color", "red")
+            .slideUp(2000)
+            .slideDown(2000);
+    </script>
+</body>
+
+</html>
