@@ -1,8 +1,16 @@
 "use strict";
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -45,8 +53,8 @@ console.log('默认值：' + d + e);
 
 // 3-2 对象的解构赋值
 var _fool$bar = {
-  fool: 'tnsihy',
-  bar: 'jgchen'
+    fool: 'tnsihy',
+    bar: 'jgchen'
 },
     fool = _fool$bar.fool,
     bar = _fool$bar.bar;
@@ -56,7 +64,7 @@ console.log('对象的解构赋值' + fool + bar);
 // 如果在解构之前就定义了变量，这时候你再解构会出现问题 解决方式如下
 var demo = void 0;
 var _demo = {
-  demo: '1'
+    demo: '1'
 };
 demo = _demo.demo;
 
@@ -83,10 +91,10 @@ console.log(k);
 // -----------4.扩展运算符和rest运算符---------------
 // 4-1 扩展运算符  不知道传进来的参数有多少个
 function tnsihy() {
-  console.log(arguments.length <= 0 ? undefined : arguments[0]);
-  console.log(arguments.length <= 1 ? undefined : arguments[1]);
-  console.log(arguments.length <= 2 ? undefined : arguments[2]);
-  console.log(arguments.length <= 3 ? undefined : arguments[3]);
+    console.log(arguments.length <= 0 ? undefined : arguments[0]);
+    console.log(arguments.length <= 1 ? undefined : arguments[1]);
+    console.log(arguments.length <= 2 ? undefined : arguments[2]);
+    console.log(arguments.length <= 3 ? undefined : arguments[3]);
 }
 tnsihy(1, 2, 3);
 
@@ -105,36 +113,36 @@ console.log(arr1); // 结果是['www','baidu,'com']
 
 // 4-2 rest(剩余)运算符
 function tnsihy(first) {
-  for (var _len = arguments.length, arg = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-    arg[_key - 1] = arguments[_key];
-  }
-
-  console.log('rest(剩余)运算符' + arg.length);
-  // 想要输出剩余的数组中的元素 for of循环
-  var _iteratorNormalCompletion = true;
-  var _didIteratorError = false;
-  var _iteratorError = undefined;
-
-  try {
-    for (var _iterator = arg[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-      var val = _step.value;
-
-      console.log(val);
+    for (var _len = arguments.length, arg = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        arg[_key - 1] = arguments[_key];
     }
-  } catch (err) {
-    _didIteratorError = true;
-    _iteratorError = err;
-  } finally {
+
+    console.log('rest(剩余)运算符' + arg.length);
+    // 想要输出剩余的数组中的元素 for of循环
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+
     try {
-      if (!_iteratorNormalCompletion && _iterator.return) {
-        _iterator.return();
-      }
+        for (var _iterator = arg[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var val = _step.value;
+
+            console.log(val);
+        }
+    } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
     } finally {
-      if (_didIteratorError) {
-        throw _iteratorError;
-      }
+        try {
+            if (!_iteratorNormalCompletion && _iterator.return) {
+                _iterator.return();
+            }
+        } finally {
+            if (_didIteratorError) {
+                throw _iteratorError;
+            }
+        }
     }
-  }
 }
 tnsihy(0, 1, 2, 3, 4, 5, 6, 7);
 
@@ -193,11 +201,11 @@ console.log(Number.isSafeInteger(demo3)); //判断是否安全整数 返回true
 // --------------7.数组操作-1----------------
 //json数组格式
 var json = {
-  '0': 'tnsihy',
-  '1': 'jgchen',
-  '2': '小君君',
-  length: 3
-  // 第一种方法：json转换为数组Array.from()
+    '0': 'tnsihy',
+    '1': 'jgchen',
+    '2': '小君君',
+    length: 3
+    // 第一种方法：json转换为数组Array.from()
 };var arr3 = Array.from(json);
 console.log(arr3);
 // 第二种方法：一堆字符串转换为数组Array.of()
@@ -206,7 +214,7 @@ console.log(arr4);
 // 第三种方法：（查找符合条件的数组元素）find()实例方法
 var arr5 = ['tnsihy', 'jgchen', '小君君'];
 console.log(arr5.find(function (value, index, arr5) {
-  return value == 'jgchen'; //输出jspang 若查找不到则返回undefined
+    return value == 'jgchen'; //输出jspang 若查找不到则返回undefined
 }));
 
 // --------------8.数组操作-2--------------
@@ -220,25 +228,25 @@ var _didIteratorError2 = false;
 var _iteratorError2 = undefined;
 
 try {
-  for (var _iterator2 = arr6[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-    var _item2 = _step2.value;
+    for (var _iterator2 = arr6[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+        var _item2 = _step2.value;
 
-    console.log(_item2);
-  }
-  // 如何输出的是下标 keys()
+        console.log(_item2);
+    }
+    // 如何输出的是下标 keys()
 } catch (err) {
-  _didIteratorError2 = true;
-  _iteratorError2 = err;
+    _didIteratorError2 = true;
+    _iteratorError2 = err;
 } finally {
-  try {
-    if (!_iteratorNormalCompletion2 && _iterator2.return) {
-      _iterator2.return();
+    try {
+        if (!_iteratorNormalCompletion2 && _iterator2.return) {
+            _iterator2.return();
+        }
+    } finally {
+        if (_didIteratorError2) {
+            throw _iteratorError2;
+        }
     }
-  } finally {
-    if (_didIteratorError2) {
-      throw _iteratorError2;
-    }
-  }
 }
 
 var _iteratorNormalCompletion3 = true;
@@ -246,25 +254,25 @@ var _didIteratorError3 = false;
 var _iteratorError3 = undefined;
 
 try {
-  for (var _iterator3 = arr6.keys()[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-    var itemIndex = _step3.value;
+    for (var _iterator3 = arr6.keys()[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+        var itemIndex = _step3.value;
 
-    console.log(itemIndex);
-  }
-  // 如何一起输出下标和value值 entries()
+        console.log(itemIndex);
+    }
+    // 如何一起输出下标和value值 entries()
 } catch (err) {
-  _didIteratorError3 = true;
-  _iteratorError3 = err;
+    _didIteratorError3 = true;
+    _iteratorError3 = err;
 } finally {
-  try {
-    if (!_iteratorNormalCompletion3 && _iterator3.return) {
-      _iterator3.return();
+    try {
+        if (!_iteratorNormalCompletion3 && _iterator3.return) {
+            _iterator3.return();
+        }
+    } finally {
+        if (_didIteratorError3) {
+            throw _iteratorError3;
+        }
     }
-  } finally {
-    if (_didIteratorError3) {
-      throw _iteratorError3;
-    }
-  }
 }
 
 var _iteratorNormalCompletion4 = true;
@@ -272,27 +280,27 @@ var _didIteratorError4 = false;
 var _iteratorError4 = undefined;
 
 try {
-  for (var _iterator4 = arr6.entries()[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-    var _step4$value = _slicedToArray(_step4.value, 2),
-        index = _step4$value[0],
-        value = _step4$value[1];
+    for (var _iterator4 = arr6.entries()[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+        var _step4$value = _slicedToArray(_step4.value, 2),
+            index = _step4$value[0],
+            value = _step4$value[1];
 
-    console.log(index + ':' + value);
-  }
-  // 2.entries()实例方法
+        console.log(index + ':' + value);
+    }
+    // 2.entries()实例方法
 } catch (err) {
-  _didIteratorError4 = true;
-  _iteratorError4 = err;
+    _didIteratorError4 = true;
+    _iteratorError4 = err;
 } finally {
-  try {
-    if (!_iteratorNormalCompletion4 && _iterator4.return) {
-      _iterator4.return();
+    try {
+        if (!_iteratorNormalCompletion4 && _iterator4.return) {
+            _iterator4.return();
+        }
+    } finally {
+        if (_didIteratorError4) {
+            throw _iteratorError4;
+        }
     }
-  } finally {
-    if (_didIteratorError4) {
-      throw _iteratorError4;
-    }
-  }
 }
 
 var arr7 = ['tnsihy', 'jgchen', '小君君'];
@@ -304,23 +312,23 @@ console.log(list.next().value); // undefined
 
 // ----------------9.箭头函数和扩展----------------------
 function addDemo1(a, b) {
-  return a + b;
+    return a + b;
 }
 console.log(addDemo1(1, 2)); // 3
 
 function addDemo2(a) {
-  var b = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+    var b = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
 
-  return a + b;
+    return a + b;
 }
 console.log(addDemo2(1)); //2
 
 // 主动抛出异常
 function addDemo3(a, b) {
-  if (a == 0) {
-    throw new Error('A is Error');
-  }
-  return a + b;
+    if (a == 0) {
+        throw new Error('A is Error');
+    }
+    return a + b;
 }
 // console.log(addDemo3(0,1));  //即抛出错误
 
@@ -331,25 +339,25 @@ function addDemo3(a, b) {
 
 // 箭头函数
 var addDemo4 = function addDemo4(a) {
-  var b = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+    var b = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
 
-  console.log('tnsihy');
-  return a + b;
+    console.log('tnsihy');
+    return a + b;
 };
 console.log('箭头函数:' + addDemo4(1));
 
 // ---------------10.ES6中的函数和数组补漏---------------------
 var jsonDemo = {
-  a: 'jspang',
-  b: '技术胖'
+    a: 'jspang',
+    b: '技术胖'
 };
 
 function fun(_ref3) {
-  var a = _ref3.a,
-      _ref3$b = _ref3.b,
-      b = _ref3$b === undefined ? 'web' : _ref3$b;
+    var a = _ref3.a,
+        _ref3$b = _ref3.b,
+        b = _ref3$b === undefined ? 'web' : _ref3$b;
 
-  console.log(a, b);
+    console.log(a, b);
 }
 fun(jsonDemo);
 
@@ -357,7 +365,7 @@ fun(jsonDemo);
 var arr8 = ['tnsihy', 'jgchen', '小君君'];
 
 function fun(a, b, c) {
-  console.log(a, b, c); //输出tnsihy jgchen 小君君
+    console.log(a, b, c); //输出tnsihy jgchen 小君君
 }
 fun.apply(undefined, arr8);
 
@@ -373,23 +381,23 @@ console.log(1 in arr9); //返回false
 // 1.forEach
 var arr10 = ['jgpang', '技术胖', '前端视频'];
 arr10.forEach(function (value, index) {
-  console.log(index, value);
+    console.log(index, value);
 });
 // 2.filter
 arr10.filter(function (value, index) {
-  console.log(index, value);
+    console.log(index, value);
 });
 // 3.some
 arr10.some(function (value, index) {
-  console.log(index, value);
+    console.log(index, value);
 });
 // 3.map
 arr10.map(function (value, index) {
-  console.log(index, value);
+    console.log(index, value);
 });
 // 也可以替换
 console.log(arr10.map(function (x) {
-  return 'web';
+    return 'web';
 })); //结果为['web','web','web']
 
 // 转换为字符串
@@ -409,9 +417,9 @@ console.log(objDemo2);
 
 // 自定义对象方法
 var objDemo3 = {
-  add: function add(a, b) {
-    return a + b;
-  }
+    add: function add(a, b) {
+        return a + b;
+    }
 };
 console.log(objDemo3.add(1, 2));
 
@@ -454,7 +462,7 @@ console.log(objDemo7[symDemo2]);
 // 1.不保护的情况
 var objDemo8 = { name: '小君君', skill: 'Vue', age: 18 };
 for (var item in objDemo8) {
-  console.log(objDemo8[item]);
+    console.log(objDemo8[item]);
 }
 // 2.保护的情况
 var objDemo9 = { name: '小君君', skill: 'Vue' };
@@ -462,37 +470,243 @@ var age = Symbol();
 objDemo9[age] = 18;
 console.log(objDemo9); //{name: "小君君", skill: "Vue", Symbol(): 18}
 for (var _item in objDemo9) {
-  console.log(objDemo9[_item]); //对age=18进行隐藏
+    console.log(objDemo9[_item]); //对age=18进行隐藏
 }
 console.log(objDemo9[age]); //输出18
 
 // ----------13.Set和WeakSet数据结构-------------------
-// Set的数据结构是以数组的形式构建的
+// Set的数据结构是以数组的形式构建的--->Set的增删查
 var setArr = new Set(['tnsihy', 'jgchen', '小君君']);
-// 为数组添加新的元素 setArr.push失败！
-setArr.add('前端职场');
-console.log("Set数据结构：" + setArr); //返回[object set]
+
+// 为数组添加新的元素 setArr.push()失败！
+setArr.add('前端职场'); //setArr.add()成功！ 若是追加相同的值，则不管用
+console.log(setArr); //返回Set(4) {"tnsihy", "jgchen", "小君君", "前端职场"}
+// 查找
+console.log(setArr.has('tnsihy')); //返回true
+// 删除某个
+setArr.delete('tnsihy');
+console.log(setArr);
+// 删除全部
+setArr.clear();
+console.log(setArr);
+// 循环输出
+var setArrDemo = new Set(['tnsihy', 'jgchen', '小君君']);
+// 第1种
 var _iteratorNormalCompletion5 = true;
 var _didIteratorError5 = false;
 var _iteratorError5 = undefined;
 
 try {
-  for (var _iterator5 = setArr[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-    var _item3 = _step5.value;
+    for (var _iterator5 = setArrDemo[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+        var _item3 = _step5.value;
 
-    console.log(_item3);
-  }
+        console.log('for...of:' + _item3);
+    }
+    // 第2种
 } catch (err) {
-  _didIteratorError5 = true;
-  _iteratorError5 = err;
+    _didIteratorError5 = true;
+    _iteratorError5 = err;
 } finally {
-  try {
-    if (!_iteratorNormalCompletion5 && _iterator5.return) {
-      _iterator5.return();
+    try {
+        if (!_iteratorNormalCompletion5 && _iterator5.return) {
+            _iterator5.return();
+        }
+    } finally {
+        if (_didIteratorError5) {
+            throw _iteratorError5;
+        }
     }
-  } finally {
-    if (_didIteratorError5) {
-      throw _iteratorError5;
-    }
-  }
 }
+
+setArrDemo.forEach(function (value) {
+    console.log('forEach:' + value);
+});
+// size返回大小，自动去重
+console.log(setArrDemo.size); // 3
+
+// WeakSet
+var weakObj = new WeakSet();
+
+var obj = { name: 'tnsihy', sex: '女' };
+var obj1 = { name: 'tnsihy', sex: '女' };
+weakObj.add(obj);
+weakObj.add(obj1);
+console.log(weakObj); // 当内存空间不相同的话 是可以重复的
+
+// 若是let obj1 = obj,指向的内存相同则不能重复
+
+// --------------13.map数据结构----------------
+var jsonDemo1 = {
+    name: 'tnsihy',
+    skill: 'Web'
+};
+console.log(jsonDemo1.name);
+// 声明map“->” 一个key值一个value值
+var map = new Map();
+map.set(json, "iam"); //json作为key值,"iam"是value值
+console.log(map);
+map.set('jgchen', json); //用set增加
+console.log(map);
+
+// map增删查
+console.log(map.get(json)); //取值，返回iam
+console.log(map.get('jgchen')); //{0: "tnsihy", 1: "jgchen", 2: "小君君", length: 3}
+// size长度
+console.log(map.size); // 2
+// 查找
+console.log(map.has('jgchen')); //true
+map.delete(json);
+// 删除某个
+console.log(map);
+// 删除全部
+map.clear();
+console.log(map);
+
+// ----------------15.用Proxy（代理）进行预处理---------------------
+//  Proxy在ES6当中是一种增强 对象和函数（方法）生命周期 钩子函数 预处理
+var pro = new Proxy({
+    add: function add(value) {
+        return value + 100;
+    },
+    name: 'I am tnsihy'
+}, {
+    // get set apply
+    get: function get(target, key, property) {
+        console.log('come in Get'); //进入了预处理机制
+        // console.log(target); //{add: ƒ, name: "I am tnsihy"}
+        // console.log(key); //name
+        // console.log(property); //Proxy {add: ƒ, name: "I am tnsihy"}
+        return target[key];
+    },
+    set: function set(target, key, value, receiver) {
+        //value要改变的值 receiver原始值
+        console.log("setting " + key + " = " + value); //输出setting name = 技术胖
+        return target[key] = value; //必须将改变的结果进行返回
+    }
+});
+console.log(pro.name); //输出I am tnsihy;若没有return target[key]则输出undefined
+pro.name = '技术胖';
+console.log(pro.name); //输出 '技术胖'
+
+//apply
+var target = function target() {
+    return 'My name is tnsihy';
+};
+// 对方法的预处理
+var handler = {
+    apply: function apply(target, ctx, args) {
+        console.log('DO APPLY');
+        console.log(target); //ƒ target() {return 'My name is tnsihy';}
+        return Reflect.apply.apply(Reflect, arguments); //?
+    }
+};
+var proDemo = new Proxy(target, handler);
+console.log(proDemo.apply());
+
+// -----------------16.promise（承诺）对象的使用---------------------------
+// 解决了ES5中回调地狱问题
+var state = 1;
+function step1(resolve, reject) {
+    console.log('1.开始-洗菜做饭');
+    if (state == 1) {
+        resolve('洗菜做饭-完成');
+    } else {
+        reject('洗菜做饭-出错');
+    }
+}
+function step2(resolve, reject) {
+    console.log('2.开始-坐下来吃饭');
+    // state = 0会出错
+    if (state == 1) {
+        resolve('坐下来吃饭-完成');
+    } else {
+        reject('坐下来吃饭-出错');
+    }
+}
+function step3(resolve, reject) {
+    console.log('3.开始-收拾桌子洗碗');
+    if (state == 1) {
+        resolve('收拾桌子洗碗-完成');
+    } else {
+        reject('收拾桌子洗碗-出错');
+    }
+}
+new Promise(step1).then(function (value) {
+    console.log(value);
+    return new Promise(step2);
+}).then(function (value) {
+    console.log(value);
+    return new Promise(step3);
+}).then(function (value) {
+    console.log(value);
+});
+/*
+1.开始-洗菜做饭
+洗菜做饭-完成
+2.开始-坐下来吃饭
+坐下来吃饭-完成
+3.开始-收拾桌子洗碗
+收拾桌子洗碗-完成
+*/
+
+// ------------------17.class类的使用(类的多方法声明)----------------------
+
+var Coder = function () {
+    _createClass(Coder, [{
+        key: "name",
+        value: function name(value) {
+            console.log(value);
+            return value;
+        }
+        // 在class中不用写逗号
+
+    }, {
+        key: "skill",
+        value: function skill(value) {
+            console.log(this.name('小君君') + ':' + 'Skill-' + value);
+        }
+        // 类的传参
+
+    }]);
+
+    function Coder(a, b) {
+        _classCallCheck(this, Coder);
+
+        this.a = a;
+        this.b = b;
+    }
+
+    _createClass(Coder, [{
+        key: "add",
+        value: function add() {
+            return this.a + this.b;
+        }
+    }]);
+
+    return Coder;
+}();
+
+var coderDemo = new Coder();
+coderDemo.name('小君君');
+coderDemo.skill('web');
+
+// 利用constructor传参
+var coderDemo1 = new Coder(1, 2);
+console.log(coderDemo1.add()); //返回3
+
+// 继承?
+
+var htmler = function (_Coder) {
+    _inherits(htmler, _Coder);
+
+    function htmler() {
+        _classCallCheck(this, htmler);
+
+        return _possibleConstructorReturn(this, (htmler.__proto__ || Object.getPrototypeOf(htmler)).apply(this, arguments));
+    }
+
+    return htmler;
+}(Coder);
+
+var htmlerDemo = new htmler();
+htmlerDemo.name('我是小君君');

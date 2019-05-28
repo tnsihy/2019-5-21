@@ -346,11 +346,191 @@ for(let item in objDemo9){
 console.log(objDemo9[age]);  //输出18
 
 // ----------13.Set和WeakSet数据结构-------------------
-// Set的数据结构是以数组的形式构建的
+// Set的数据结构是以数组的形式构建的--->Set的增删查
 let setArr = new Set(['tnsihy','jgchen','小君君']);
-// 为数组添加新的元素 setArr.push失败！
-setArr.add('前端职场');  //若是追加相同的值，则不管用
-console.log("Set数据结构：" + setArr); //返回[object set]
-for(let item of setArr){
-    console.log(item);
+
+// 为数组添加新的元素 setArr.push()失败！
+setArr.add('前端职场');  //setArr.add()成功！ 若是追加相同的值，则不管用
+console.log(setArr); //返回Set(4) {"tnsihy", "jgchen", "小君君", "前端职场"}
+// 查找
+console.log(setArr.has('tnsihy'))  //返回true
+// 删除某个
+setArr.delete('tnsihy');
+console.log(setArr);
+// 删除全部
+setArr.clear();
+console.log(setArr);
+// 循环输出
+let setArrDemo = new Set(['tnsihy','jgchen','小君君']);
+// 第1种
+for(let item of setArrDemo){
+    console.log('for...of:' + item);
 }
+// 第2种
+setArrDemo.forEach((value) =>{
+    console.log('forEach:' + value);
+})
+// size返回大小，自动去重
+console.log(setArrDemo.size);  // 3
+
+// WeakSet
+let weakObj = new WeakSet();
+
+let obj = {name:'tnsihy',sex:'女'};
+let obj1 = {name:'tnsihy',sex:'女'}
+weakObj.add(obj); 
+weakObj.add(obj1); 
+console.log(weakObj); // 当内存空间不相同的话 是可以重复的
+
+// 若是let obj1 = obj,指向的内存相同则不能重复
+
+// --------------13.map数据结构----------------
+let jsonDemo1 = {
+    name:'tnsihy',
+    skill:'Web'
+};
+console.log(jsonDemo1.name);
+// 声明map“->” 一个key值一个value值
+var map = new Map();
+map.set(json,"iam"); //json作为key值,"iam"是value值
+console.log(map);
+map.set('jgchen',json); //用set增加
+console.log(map);
+
+// map增删查
+console.log(map.get(json));  //取值，返回iam
+console.log(map.get('jgchen'));  //{0: "tnsihy", 1: "jgchen", 2: "小君君", length: 3}
+// size长度
+console.log(map.size); // 2
+// 查找
+console.log(map.has('jgchen'));  //true
+map.delete(json);
+// 删除某个
+console.log(map);
+// 删除全部
+map.clear();
+console.log(map);
+
+// ----------------15.用Proxy（代理）进行预处理---------------------
+//  Proxy在ES6当中是一种增强 对象和函数（方法）生命周期 钩子函数 预处理
+let pro = new Proxy({
+    add:function(value){
+        return value + 100
+    },
+    name:'I am tnsihy'
+},{
+    // get set apply
+    get:function(target,key,property){
+        console.log('come in Get')  //进入了预处理机制
+        // console.log(target); //{add: ƒ, name: "I am tnsihy"}
+        // console.log(key); //name
+        // console.log(property); //Proxy {add: ƒ, name: "I am tnsihy"}
+        return target[key];
+    },
+    set:function(target,key,value,receiver){ //value要改变的值 receiver原始值
+        console.log(`setting ${key} = ${value}`); //输出setting name = 技术胖
+        return target[key] = value //必须将改变的结果进行返回
+    }
+});
+console.log(pro.name); //输出I am tnsihy;若没有return target[key]则输出undefined
+pro.name = '技术胖';
+console.log(pro.name); //输出 '技术胖'
+
+//apply
+let target = function(){
+    return 'My name is tnsihy'
+}
+// 对方法的预处理
+let handler = {
+    apply(target,ctx,args){
+        console.log('DO APPLY');
+        console.log(target); //ƒ target() {return 'My name is tnsihy';}
+        return Reflect.apply(...arguments)  //?
+    }
+}
+let proDemo = new Proxy(target,handler);
+console.log(proDemo.apply())
+
+// -----------------16.promise（承诺）对象的使用---------------------------
+// 解决了ES5中回调地狱问题
+let state = 1;
+function step1(resolve,reject){
+    console.log('1.开始-洗菜做饭')
+    if(state == 1){
+        resolve('洗菜做饭-完成')
+    }else{
+        reject('洗菜做饭-出错')
+    }
+}
+function step2(resolve,reject){
+    console.log('2.开始-坐下来吃饭')
+    // state = 0会出错
+    if(state == 1){
+        resolve('坐下来吃饭-完成')
+    }else{
+        reject('坐下来吃饭-出错')
+    }
+}
+function step3(resolve,reject){
+    console.log('3.开始-收拾桌子洗碗')
+    if(state == 1){
+        resolve('收拾桌子洗碗-完成')
+    }else{
+        reject('收拾桌子洗碗-出错')
+    }
+}
+new Promise(step1).then(function(value){
+    console.log(value);
+    return new Promise(step2);
+}).then(function(value){
+    console.log(value);
+    return new Promise(step3);
+}).then(function(value){
+    console.log(value);
+})
+/*
+1.开始-洗菜做饭
+洗菜做饭-完成
+2.开始-坐下来吃饭
+坐下来吃饭-完成
+3.开始-收拾桌子洗碗
+收拾桌子洗碗-完成
+*/
+
+// ------------------17.class类的使用(类的多方法声明)----------------------
+class Coder{
+    name(value){
+        console.log(value);
+        return value;
+    }
+    // 在class中不用写逗号
+    skill(value){
+        console.log(this.name('小君君') + ':' + 'Skill-' + value);
+    }
+    // 类的传参
+    constructor(a,b){
+        this.a = a;
+        this.b = b;
+    }
+    add(){
+        return this.a + this.b;
+    }
+}
+let coderDemo = new Coder;
+coderDemo.name('小君君');
+coderDemo.skill('web');
+
+// 利用constructor传参
+let coderDemo1 = new Coder(1,2);
+console.log(coderDemo1.add());  //返回3
+
+// 继承?
+class htmler extends Coder{
+
+}
+let htmlerDemo = new htmler;
+htmlerDemo.name('我是小君君');
+
+// --------------18.模块化操作-------------------
+// export输出  import引入
+
