@@ -4,7 +4,8 @@
   "description": "这是一个ES6",
   "main": "index.js",
   "scripts": {
-    "build": "babel src/index.js -o dist/index.js"
+    "build": "babel src/index.js -o dist/index.js",
+    "demo":"babel src/demo.js -o dist/demo.js"
   },
   "keywords": [],
   "author": "tnsihy",

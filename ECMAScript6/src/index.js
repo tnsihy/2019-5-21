@@ -533,10 +533,10 @@ htmlerDemo.name('我是小君君');
 
 // --------------18.模块化操作-------------------
 // export输出  import引入
-// 写在src/temp.js
-import {nameDemo} from './temp';
-console.log(nameDemo);
-// 引入方式为花括号
-import {nameDemo,Boy,skill} from './temp'
-// export default引入方式 sky可以随便起名字 不需要知道temp.js中具体是什么
-import sky from './temp'
+// // 写在src/temp.js
+// import {nameDemo} from './temp';
+// console.log(nameDemo);
+// // 引入方式为花括号
+// import {nameDemo,Boy,skill} from './temp'
+// // export default引入方式 sky可以随便起名字 不需要知道temp.js中具体是什么
+// import sky from './temp'

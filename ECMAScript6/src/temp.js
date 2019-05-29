@@ -16,5 +16,5 @@ export {
     skill as c,
 }
 
-export default var a ='jspang'
+// export default var a ='jspang'
 
