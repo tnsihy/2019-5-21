@@ -1,6 +1,12 @@
-"use strict";
+'use strict';
 
-var myMap1 = new Map([["key1", "value1"], ["key2", "value2"]]);
-var myMap2 = new Map(myMap1);
-
-console.log(myMap1 === myMap2);
+var proxy = new Proxy({
+    name: 'Tom',
+    age: 18
+}, {
+    ownKeys: function ownKeys(target) {
+        return ['name'];
+    }
+});
+Object.keys(proxy);
+console.log(Object.keys(proxy));
