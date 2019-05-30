@@ -570,10 +570,63 @@ let age = 27;
 f`My Name is ${name},I am ${age+1} years old next year.`;
 // 等价于
 f(['My Name is',',I am ',' years old next year.'],'Mike',28);
-// 过滤HTML字符串
-
+// 过滤HTML字符串，防止用户输入恶意内容
+function f(stringArr,...values){
+    let result = "";
+    for(let i=0;i<stringArr.length;i++){
+        result += stringArr[i];
+        if(values[i]){
+            result += String(values[i]).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+    }
+    return result;
+}
+name = '<Amy&Mike>';
+f`<p>Hi,${name}.I would like send you some message.</p>`
+// <p>Hi, &lt;Amy&amp;MIke&gt;.I would like send you some message.</p>
 
 // 3-2-2 数值
+// 数值的表示
+// 二进制表示法 前缀0b或者0B
+console.log(0b11 === 3); // true
+console.log(0B11 === 3); // true
+// 八进制表示法 前缀0o或者0O
+console.log(0o11 === 9); // true
+console.log(0O11 === 9); // true
+// 常量Number.EPSILON 表示1与大于1的最小浮点数之间的差 值接近于2.2204460492503130808472633361816E-16，或者 2-52
+// 测试数值是否在误差范围内：
+0.1 + 0.2 === 0.3; //false 0.30000000000000004
+Math.abs(0.1 - 0.3 + 0.2) < Number.EPSILON //true
+// 属性特性
+writable:false
+enumerable:false;
+configurable:false; 
+// 最大、最小安全整数 安全整数范围在2的-53次方到2的53次方之间（不包括两个端点）超过这个范围的整数无法精确表示。
+// 最大安全整数
+Number.MAX_SAFE_INTEGER + 1 === Number.MAX_SAFE_INTEGER + 2; // true
+Number.MAX_SAFE_INTEGER === Number.MAX_SAFE_INTEGER + 1;     // false
+Number.MAX_SAFE_INTEGER - 1 === Number.MAX_SAFE_INTEGER - 2; // false
+// 最小安全整数
+Number.MIN_SAFE_INTEGER + 1 === Number.MIN_SAFE_INTEGER + 2; // false
+Number.MIN_SAFE_INTEGER === Number.MIN_SAFE_INTEGER - 1;     // false
+Number.MIN_SAFE_INTEGER - 1 === Number.MIN_SAFE_INTEGER - 2; // true
+
+// 方法
+// Number对象新方法
+Number.isFinite() // 用于检测一个数值是否为有限的finite，即不是infinity
+console.log(Number.isFinite(1)); // true
+console.log(Number.isFinite(0.1)); // true
+console.log(Number.isFinite(NaN)); // false NaN不是有限的
+Number.isFinite(Infinity); // false
+Number.isFinite(-Infinity); // false
+// Number.isFinite()没有隐式的Number()类型转换，所有非数值都返回false
+
+Number.isNaN() //用于检查一个值是否为NaN 不存在隐式转换
+Number.isNaN(NaN); // true
+console.log(Number.isNaN(true));  // true
+
+// 从全局移植到Number对象的方法
+Number.parseInt() //?????
 // 3-2-3 对象
 // 3-2-4 数组
 
