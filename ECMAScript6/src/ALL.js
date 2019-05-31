@@ -626,7 +626,384 @@ Number.isNaN(NaN); // true
 console.log(Number.isNaN(true));  // true
 
 // 从全局移植到Number对象的方法
-Number.parseInt() //?????
+Number.parseInt() // 用于将给定字符转化为指定进制的整数
+// 不指定默认为十进制
+Number.parseInt('12.34'); // 12
+Number.parseInt(12.34); // 12
+// 指定进制
+Number.parseInt('0011',2); // 3
+// 与全局的parseInt()函数是同一函数
+Number.parseInt === parseInt;
+
+Number.parseFloat() // 用于把一个字符串解析成浮点数
+Number.parseFloat('123.45'); // 123.45
+Number.parseFloat('123.45abc'); // 123.45
+// 无法解析成浮点数，则返回NaN
+Number.parseFloat('abc') // NaN
+// 与全局的 parseFloat() 方法是同一个方法
+Number.parseFloat === parseFloat // true
+
+Number.isInteger() // 用于判断给定的参数是否为整数
+Number.isInteger(value); // false
+Number.isInteger(0); // true
+// JavaScript内部，整数和浮点数采用的是同样的储存方法，因此1与1.0被视为相同的值
+Number.isInteger(1);  // true
+Number.isInteger(1.0); // true
+Number.isInteger(1.1); // false
+Number.isInteger(Math.PI); // false
+// NaN 和正负 Infinity 不是整数
+Number.isInteger(NaN);       // false
+Number.isInteger(Infinity);  // false
+Number.isInteger(-Infinity); // false
+Number.isInteger("10");  // false
+Number.isInteger(true);  // false
+Number.isInteger(false); // false
+Number.isInteger([1]);   // false
+
+Number.isSafeInteger() // 用于判断数值是否在安全范围内。
+Number.isSafeInteger(Number.MIN_SAFE_INTEGER - 1); // false
+Number.isSafeInteger(Number.MAX_SAFE_INTEGER + 1); // false
+
+// Math对象的扩展
+Math.cbrt() // 用于计算一个数的立方根 会对非数值进行转换
+Math.cbrt(1); // 1
+Math.cbrt('1'); // 1
+Math.cbrt('hhh'); // NaN
+
+Math.imul() // 两个数以32位带符号整数形式相乘的结果，返回也是一个32位的带符号整数
+// 大多数情况下，结果与a*b相同
+Math.imul(1,2); // 2
+// 用于正确返回大数乘法结果中的低位数值  ???
+Math.imul(0x7fffffff,0x7fffffff); // 1
+
+Math.hypot() // 用于计算所有参数的平方和的平方根
+Math.hypot(3,4) // 5
+Math.hypot(1,2,'3') //3.741657386773941
+Math.hypot(true); // 1 非数值会先被转换为数值后进行计算
+Math.hypot(false); // 0
+// 空值会被转换为 0
+Math.hypot(); // 0
+Math.hypot([]); // 0
+// 参数为 Infinity 或 -Infinity 返回 Infinity
+Math.hypot(Infinity); // Infinity
+Math.hypot(-Infinity); // Infinity
+// 参数中存在无法转换为数值的参数时返回 NaN
+Math.hypot(NaN);         // NaN
+Math.hypot(3, 4, 'foo'); // NaN
+Math.hypot({});          // NaN
+
+Math.clz32() // 用于返回数字的32位无符号整数形式的前导0的个数
+Math.clz32(0); //32 0转化为32位无符号二进制整数 则有32个0
+Math.clz32(1); //31 1转化为32位无符号二进制整数 则有31个0 1个1
+Math.clz32(0b01000000000100000000000000000000); // 1
+// 当参数为小数时，只考虑整数部分
+Math.clz32(0.5);
+// 对于空值或非数值，会转化为数值再进行计算
+Math.clz32('1');       // 31
+Math.clz32();          // 32
+Math.clz32([]);        // 32
+Math.clz32({});        // 32
+Math.clz32(NaN);       // 32
+Math.clz32(Infinity);  // 32
+Math.clz32(-Infinity); // 32
+Math.clz32(undefined); // 32
+Math.clz32('hhh');     // 32
+
+Math.trunc() // 用于返回数字的整数部分
+Math.trunc(12.3); //12
+Math.trunc(12); //12
+// 整数部分为0也会判断符号
+Math.trunc(-0.5); //-0
+Math.trunc(0.5); //0
+// Math.trunc 会将非数值转为数值再进行处理
+Math.trunc("12.3"); // 12
+// 空值或无法转化为数值时时返回 NaN
+Math.trunc();           // NaN
+Math.trunc(NaN);        // NaN
+Math.trunc("hhh");      // NaN
+Math.trunc("123.2hhh"); // NaN
+
+Math.fround() // 用于获取数字的32位单精度浮点数形式
+// 对于 2 的 24 次方取负至 2 的 24 次方之间的整数（不含两个端点），返回结果与参数本身一致
+Math.fround(-(2**24)+1);  // -16777215
+Math.fround(2 ** 24 - 1); // 16777215
+// 用于将 64 位双精度浮点数转为 32 位单精度浮点数
+Math.fround(1.234) // 1.125
+// 当小数的精度超过 24 个二进制位，会丢失精度
+Math.fround(0.3); // 0.30000001192092896
+// 参数为 NaN 或 Infinity 时返回本身
+Math.fround(NaN)      // NaN
+Math.fround(Infinity) // Infinity
+// 参数为其他非数值类型时会将参数进行转换 
+Math.fround('5');  // 5
+Math.fround(true); // 1
+Math.fround(null); // 0
+Math.fround([]);   // 0
+Math.fround({});   // NaN
+
+Math.sign() //用于判断数字的符号（正、负、0）
+Math.sign(1);  // 1
+Math.sign(-1); // -1
+// 参数为 0 时，不同符号的返回不同
+Math.sign(0);  // 0
+Math.sign(-0); // -0
+// 判断前会对非数值进行转换
+Math.sign('1');  // 1
+Math.sign('-1'); // -1  
+// 参数为非数值（无法转换为数值）时返回 NaN
+Math.sign(NaN);   // NaN 
+Math.sign('hhh'); // NaN
+
+Math.expm1() // 用于计算e的x次方减1的结果，即Math.exp(x)-1
+Math.expm1(1);  // 1.718281828459045
+Math.expm1(0);  // 0
+Math.expm1(-1); // -0.6321205588285577
+// 会对非数值进行转换
+Math.expm1('0'); //0
+// 参数不为数值且无法转换为数值时返回 NaN
+Math.expm1(NaN); // NaN
+
+Math.log1p(x) // 用于计算1+x的自然对数，即Math.log(1+x) 
+Math.log1p(1);  // 0.6931471805599453
+Math.log1p(0);  // 0
+Math.log1p(-1); // -Infinity
+// 参数小于 -1 时返回 NaN
+Math.log1p(-2); // NaN
+
+Math.log10() // 用于计算以10为底的x的对数 
+Math.log2() // 用于计算以2为底的x的对数
+Math.log10(1);   // 0
+// 计算前对非数值进行转换
+Math.log10('1'); // 0
+// 参数为0时返回 -Infinity
+Math.log10(0);   // -Infinity
+// 参数小于0或参数不为数值（且无法转换为数值）时返回 NaN
+Math.log10(-1);  // NaN
+
+// 双函数方法
+Math.sinh(x) // 用于计算双曲正弦。
+Math.cosh(x) // 用于计算双曲余弦。
+Math.tanh(x) // 用于计算双曲正切。
+Math.asinh(x) // 用于计算反双曲正弦。
+Math.acosh(x) // 用于计算反双曲余弦。
+Math.atanh(x) // 用于计算反双曲正切。
+
+// 指数运算符
+1 ** 2; //1
+// 从右结合，从右至左计算
+2 ** 2 ** 3; //2 ** 8 = 256
+// **=
+let exam = 2;
+exam **= 2; // 4
+
 // 3-2-3 对象
+// 对象字面量
+//   1.属性的简洁表示法
+const name = 'Tom';
+const age = 12;
+const person = {name,age};
+console.log(person); // person = {name:'Tom',age:12}
+// 等同于
+const person = {name:name,age:age}
+// 方法名也可以简写
+const person = {
+    sayHi(){
+        console.log('Hi');
+    }
+}
+person.sayHi(); //Hi
+// 等同于
+const person = {
+    sayHi:function(){
+        console.log('Hi');
+    }
+}
+person.sayHi();
+// 如果是Generator函数，则要在前面加一个星号: 后面会学！
+const obj = {
+    * myGenerator(){
+        yield 'Hello World';
+    }
+};
+// 等同于
+const obj = {
+    myGenerator:function(){
+        yield 'Hello World';
+    }
+}
+//   2.属性名表达式
+// ES6允许用表达式作为属性名，但是一定要将表达式放在方括号内。
+const obj = {
+    ['he' + 'llo'](){
+        return 'Hi';
+    }
+}
+obj.hello(); //'Hi'
+
+// 对象的拓展运算符
+// 拓展运算符（...）用于取出参数对象所有可遍历属性然后拷贝到当前对象。
+let person = {name: "Amy", age: 15};
+let someone = { ...person };
+someone;  //{name: "Amy", age: 15}
+// 合并
+let name = 'Tom';
+let age = 18;
+let someone = {...name,...age};
+someone; //{name:'Tom',age:18}
+// !!自定义的属性在拓展运算符后面，则拓展运算符对象内部同名的属性将被覆盖掉
+let person = {name: "Amy", age: 15};
+let someone = { ...person, name: "Mike", age: 17};
+someone;  //{name: "Mike", age: 17}
+// !!自定义的属性在拓展运算度前面，则变成设置新对象默认属性值
+let person = {name : "Amy",age : 15};
+let someone = { name : "Mike",age : 17,...person};
+someone; //{name : "Amy",age : 15}
+// 拓展运算符后面是空对象，没有任何效果也不会报错。
+let a = {...{}, a: 1, b: 2};
+a;  //{a: 1, b: 2}
+// 拓展运算符后面是null或者undefined，没有效果也不会报错。
+let b = {...null, ...undefined, a: 1, b: 2};
+b;  //{a: 1, b: 2}
+
+// 对象的新方法
+// 1.Object.assign(target,source_1,...) 用于将源对象的所有枚举属性复制到目标对象中
+let target = {a:1};
+let object2 = {b:2};
+let object3 = {c:3};
+Object.assign(target,object2,object3);  // 第一个参数是目标对象，后面的参数是源对象
+target; //{a:1,b:2,c:3}
+// 目标对象和源对象有同名属性，或者多个源对象有同名属性，则后面的属性会覆盖前面的属性
+// 如果该函数只有一个参数，当参数为对象时，直接返回该对象；当参数不是对象时，会先将参数转为对象然后返回。
+Object.assign(3);  //Number(3)
+typeof Object.assign(3); //"object"
+// null 和 undefined 不能转化为对象，所以会报错:
+Object.assign(null);       // TypeError: Cannot convert undefined or null to object
+Object.assign(undefined);  // TypeError: Cannot convert undefined or null to object
+// 当参数不止一个时，null 和 undefined 不放第一个，即不为目标对象时，会跳过 null 和 undefined ，不报错
+Object.assign(1,undefined);  // Number {1}
+Object.assign({a: 1},null);  // {a: 1}
+Object.assign(undefined,{a: 1});  // TypeError: Cannot convert undefined or null to object
+// 数组的处理
+Object.assign([2,3],[5]) //[5,3]  //转化为{0:2,1:3}
+
+// 2.Object.is(value1,value2) 用来比较判断两个值是否相等，与===基本类似
+Object.is('q','q'); // true
+Object.is([1],[1]); // false
+Object.is({q:1},{q:1}); // false
+// 与===的区别
+Object.is(-0,+0); // false
+Object.is(NaN,NaN); // true
+NaN === NaN; // false
+
 // 3-2-4 数组
+// 数组创建
+// 1.Array.of() 将参数中所有的值作为元素形成数组
+console.log(Array.of(1,2,3,4)); // [1,2,3,4]
+Array.of(1,'2',true); // [1,'2',true]
+Array.of(); // []
+
+// 2.Array.from() 将类数组对象或可迭代对象转化为数组
+Array.from([1,2]); // [1,2]
+Array.from([1,,3]); // [1,undefined,3]
+// Array.from(arrayLike[,mapFn[,thisArg]]) 返回值为转换后的数组
+// arrayLike 想要转换的类型数组对象或可迭代对象
+Array.from([1,2,3]); // [1,2,3]
+// mapFn 可选，map函数，用于对每个元素进行处理，放入数组的是处理后的元素
+Array.from([1,2,3],(n) => n*2); // [2,4,6]
+// thisArg 可选，用于指定map函数执行时的this对象
+let map = {
+    do:function(){
+        return n*2;
+    }
+}
+let arrayLike = [1,2,3];
+console.log(Array.from(arrayLike,function(n){
+    return this.do(n);
+},map));  // [2,4,6]
+
+// 类数组对象 必须有length属性，且元素属性名必须是数值或者可转化为数值的字符
+let arr = Array.from({
+    0:'1',
+    1:'2',
+    2:3,
+    length:3
+});
+console.log(arr); // ['1','2',3]
+//没有length属性，则返回空数组
+let array = Array.from({
+    0:'1',
+    1:'2',
+    2:3
+})
+console.log(array); // []
+// 元素属性名不是数值且无法转化为数值，返回长度length元素值为undefined的数组
+let array1 = Array.from({
+    a:1,
+    b:2,
+    length:2
+})
+console.log(array1); // [undefined,undefined]
+
+// 转换可迭代对象
+// 1.转换map
+let map = new Map();
+map.set('key0','value0');
+map.set('key1','value1');
+console.log(Array.from(map)); // [['key0','value0'],['key1','value2']]
+
+// 2.转换set
+let arr = [1,2,3];
+let set = new Set(arr);
+console.log(Array.from(set)); // [1,2,3]
+
+// 3.转换字符串
+let str = 'abc';
+console.log(Array.from(str)); //['a','b','c']
+
+// 扩展的方法
+// 1.find() 查找数组中符合条件的元素，若有多个符合条件的元素，则返回第一个元素
+let arr = Array.of(1,2,3,4);
+console.log(arr.find(item => {
+    item > 2;
+})) // 3
+// 数组空位处理为undefined
+console.log([,1].find(n => true)); // undefined
+
+// 2.findIndex() 查找数组中符合条件的元素索引，若有多个符合条件的索引，则返回第一个元素索引
+// 参数1：回调函数  参数2(可选)：指定回调函数中的this值
+let arr = Array.of(1,2,3,4);
+console.log(arr.findIndex(item => item = 1)); // 0
+// 数组空位处理为undefined
+console.log([,1].findIndex(n => true)); // 0
+
+// 3.fill() 将一定范围索引的数组元素内容填充为单个指定的值
+let arr = Array.of(1,2,3,4);
+// 参数1：用来填充的值  参数2：被填充的起始索引  参数3：被填充的结束索引，默认为数组末尾
+console.log(arr.fill(0,1,2)); // [1,0,3,4]
+
+// 4.copyWithin() 将一定范围索引的数组元素修改为此数组另一指定范围索引的元素
+// 参数1：被修改的起始索引  参数2：被用来覆盖的数据的起始索引  参数3(可选)：被用来覆盖的数据的结束索引，默认为数组末尾
+let arr = Array.of(1,2,3,4);
+arr.copyWithin(0,2,4); //[3,4,3,4]
+arr.copyWithin(2,0); //[1,2,1,2]
+[1,2,,4].arr.copyWithin(0,2,4); //[,4,,4]
+
+// 遍历
+// 1.entries() 遍历键值对
+for(let[key,value] of ['a','b'].entries()){
+    console.log(key,value);
+}
+// 0 "a"
+// 1 "b"
+// 不使用for...of循环
+let entries = ['a','b'].entries();
+console.log(entries.next().value); // [0,'a']
+console.log(entries.next().value); // [1,'b']
+// 数组含空位
+console.log([...[,'a']].entries()); //[[0,undefined],[1,'a']]
+
+// 2.keys() 遍历键名
+for(let key of ['a','b'].keys())
+
+
 
