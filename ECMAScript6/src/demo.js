@@ -1,5 +1,6 @@
-let sourceObj = { a: { b: 1}};
-let targetObj = {c: 3};
-Object.assign(targetObj, sourceObj);
-targetObj.a.b = 2;
-console.log([,1].find(n => false));
+const typedArray1 = new Int8Array(6);
+typedArray1[0] = 10;
+typedArray1[1] = 11;
+for(let item of typedArray1){
+    console.log(item);
+}

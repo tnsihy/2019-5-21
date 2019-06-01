@@ -1003,7 +1003,327 @@ console.log(entries.next().value); // [1,'b']
 console.log([...[,'a']].entries()); //[[0,undefined],[1,'a']]
 
 // 2.keys() 遍历键名
-for(let key of ['a','b'].keys())
+for(let key of ['a','b'].keys()){
+    console.log(key);
+}
+// 0
+// 1
+// 数组含空位
+console.log([...[,'a'].values()]); // [undefined,'a']
 
+// 包含
+// includes() 数组是否包含指定值
+// 注意：与Set和Map的has方法区分；Set的has方法用于查找值；Map的has方法用于查找键名。
+// 参数1：包含的指定值
+[1,2,3].includes(1); // true
+// 参数2(可选)：搜索的起始索引，默认为0
+[1,2,3].includes(1,2); // false
+// NaN的包含判断
+[1,NaN,3].includes(NaN); // true;
 
+// 嵌套数组转一维数组
+// 1.flat()
+[1,[2,3]].flat(); //[1,2,3]
+// 指定转换的嵌套层数（从外向内）
+[1,[2,[3,[4,5]]]].flat(2);  // [1,2,3,[4,5]]
+// 不管嵌套多少层
+[1,[2,[3,[4,5]]]].flat(Infinity); // [1,2,3,4,5]
+// 自动跳过空位
+[1,[2,,3]].flat(); //[1,2,3]
 
+// 2.flatMap() 先对数组中每个元素进行处理，再对数组执行flat()方法
+// 参数1：遍历函数，该遍历函数可接受3个参数：当前元素、当前元素索引、原数组
+// 参数2：指定遍历函数中this的指向
+console.log([1,2,3].flatMap(n => [n*2])); // [2,4,6]
+
+// 数组缓冲区 内存中的一段地址
+// 实际字节数在创建时确定，之后只可修改其中的数据，不可修改大小。
+
+// 创建数组缓冲区
+let buffer = new ArrayBuffer(10);
+console.log(buffer.byteLength); // 10
+// 分割已有数组缓冲区
+let buffer = new ArrayBuffer(10);
+let buffer1 = buffer.slice(1,3);
+console.log(buffer1.byteLength); // 2
+
+// 视图 用来操作内存的接口  ????
+// 可以操作数组缓冲区或缓冲区字节的子集，并按照其中一种数值数据类型来读取和写入数据
+// DataView类型是一种通用的数组缓冲区视图，其支持所有8种数值型数据类型
+// 创建 
+let buffer = new ArrayBuffer(10);
+let dataView = new DataView(buffer);
+dataView.setInt8(0,1); // dataView.setInt8(byteOffset,value)
+console.log(dataView.getInt8(0)); // 1
+// 通过设定偏移量(参数2)与长度(参数3)指定 DataView 可操作的字节范围
+let buffer1 = new ArrayBuffer(10);
+let dataView = new DataView(buffer1,0,3);
+dataView.setInt8(5,1); //RangeError
+
+// 定型数组  ????
+// 数组缓冲区的特定类型的视图
+// 可以强制使用特定的数据类型，而不是使用通用的DataView对象来操作数组缓冲区
+// 创建
+// 通过数组缓冲区生成
+let buffer = new ArrayBuffer(10);
+let view = new Int8Array(buffer);
+console.log(view.byteLength); // 10
+// 通过构造函数
+let view = new Int32Array(10);
+console.log(view.byteLength); // 40
+console.log(view.length); // 10
+// 不传参则默认长度为0
+// 在这种情况下数组缓冲区分配不到空间，创建的定型数组不能用来保存数据
+let view1 = new Int32Array();
+console.log(view1.byteLength); // 0
+console.log(view1.length);     // 0
+// 可接受参数包括定型数组、可迭代对象、数组、类数组对象
+let arr = Array.from({
+0: '1',
+1: '2',
+2: 3,
+length: 3
+});
+let view2 = new Int16Array([1, 2]),
+    view3 = new Int32Array(view2),
+    view4 = new Int16Array(new Set([1, 2, 3])),
+    view5 = new Int16Array([1, 2, 3]),
+    view6 = new Int16Array(arr);
+console.log(view2 .buffer === view3.buffer); // false
+console.log(view4.byteLength); // 6
+console.log(view5.byteLength); // 6
+console.log(view6.byteLength); // 6
+// length属性不可写，如果尝试修改这个值，在非严格模式下会直接忽略该操作，在严格模式下会抛出错误。
+let view = new Int16Array([1,2]);
+view.length = 3;
+console.log(view.length); // 2
+// 定型数组可使用entries()、keys()、values()进行迭代
+let view = new Int16Array([1,2]);
+for(let [k,v] of view.entries()){
+    console.log(k,v);
+}
+// 0 1
+// 1 2
+let view = new Int16Array([1,2]);
+view.find((n) => 1); // 2
+// 定型数组的方法返回定型数组,而普通数组的方法返回普通数组
+let view = Int16Array.of(1,2);
+console.log(view instanceof Int16Array); // true
+// 定型数组不是普通数组，不继承自Array
+let view = new Int16Array([1,2]);
+console.log(Array.isArray(view)); //false
+// 定型数组中增加了set()与subarray()方法
+// set()方法用于将其他数组复制到已有定型数组 subrray()用于提取已有定型数组的一部分形成新的定型数组
+// set方法
+// 参数1：一个定型数组或普通数组  参数2(可选):偏移量，开始插入数据的位置，默认为0
+let view = new Int16Array(4);
+view.set([1,2]);
+view.set([3,4],2);
+console.log(view); // [1,2,3,4]
+// subrray()方法
+// 参数1：可选，开始位置  参数2：可选，结束位置（不包括结束位置）
+let view = new Int16Array([1,2,3,4]),
+    subview1 = view.subarray(),
+    subview2 = view.subarray(1),
+    subview3 = view.subarray(1,3);
+console.log(subview1); // [1,2,3,4]
+console.log(subview2); // [2,3,4]
+console.log(subview3); // [2,3]
+
+// 扩展运算符
+// 复制数组
+let arr = [1,2];
+let arr1 = [...arr];
+console.log(arr1); // [1,2]
+// 数组含空位
+let arr2 = [1,,3];
+let arr3 = [...arr2];
+console.log(arr3); // [1,undefined,3]
+// 合并数组
+console.log([...[1,2],...[3,4]]); // [1,2,3,4]
+
+// -----------4.运算符与语句----------------
+// 4-1 函数
+//   函数参数的扩展
+function fn(name,age=17){
+    console.log(name + ',' + age);
+}
+fn("Amy",18); // Amg,18
+fn("Amy","");  // Amy,
+fn("Amy");     // Amy,17
+// 函数参数默认值存在暂时性死区，在函数参数默认值表达式中，还未初始化赋值的参数值无法作为其他参数的默认值
+function f(x=y){
+    console.log(x);
+}
+f(); //ReferenceError: y is not defined
+// 不定参数 用来表示不确定参数个数，形如...变量名 具名参数只能放在参数组的最后，并且有且只有一个不定参数
+function f(...values){
+    console.log(values.length);
+}
+f(1,2); // 2
+f(1,2,3,4) // 4
+
+// 箭头函数 参数=>函数体
+var f = v => v;
+// 等价于
+var f = function(v){
+    return v;
+}
+f(1); // 1
+// 当箭头函数没有参数或者有多个参数，要用()括起来
+var f = (a,b) => a+b;
+f(6,2); // 8
+// 当箭头函数体有多行语句，要用{}括起来，表示代码块
+var f = (a,b) => {
+    let result = a + b;
+    return result;
+}
+f(6,2); // 8
+// 当箭头函数要返回对象的时候，为了区分于代码块，要用()括起来
+var f = (id,name) => ({
+    id:id,
+    name:name
+});
+f(6,2); // {id:6,name:2}
+// 没有this(此时的this指外层this，即Window)、super、arguments和new.target绑定
+// 箭头函数体中的this对象，是定义函数时的对象，而不是使用函数时的对象
+function fn(){
+    setTimeout(()=>{
+        // 定义时，this绑定的是fn中的this对象
+        console.log(this.a);
+    },0)
+}
+var a = 20;
+// fn的this对象为 {a : 20}
+fn.call({a:18});  // 18
+// 适合使用的场景
+// 回调函数
+var Person = {
+    'age' : 18,
+    'sayHello': function(){
+        setTimeout(function(){
+            console.log(this.age);
+        })
+    }
+};
+var age = 20;
+Person.sayHello(); // 20
+// 用ES6
+var Person1 = {
+    'age':18,
+    'sayHello':function(){
+        setTimeout(()=>{
+            console.log(this.age);
+        });
+    }
+};
+var age = 20;
+Person1.sayHello(); // 18
+
+// 不适合使用的场景
+var Person = {
+    'age': 18,
+    'sayHello':()=>{
+        console.log(this.age);
+    }
+};
+var age =20;
+Person.sayHello(); //20 此时this指向全局
+var Person1 = {
+    'age': 18,
+    'sayHello': function(){
+        console.log(this.age);
+    }
+};
+var age = 20;
+Person1.sayHello(); //18 此时this指向Person1对象
+// 需要动态this的时候不适合使用
+var button = document.getElementById('userClick');
+button.addEventListener('click',()=>{
+    this.classList.toggle('on');
+})
+//button 的监听函数是箭头函数，所以监听函数里面的 this 指向的是定义的时候外层的 this 对象，即 Window，导致无法操作到被点击的按钮对象。
+
+// 4-2 迭代器(一种新的遍历机制)
+//   迭代过程
+// 通过Symbol.iterator创建一个迭代器，指向当前数据结构的起始位置
+// 通过next方法进项向下迭代，next方法会返回当前位置对象，对象包含了value和done两个属性，value是当前属性的值，done用于判断是否遍历结束
+// 当done为true时结束
+const items = ['zero','one','two'];
+const it = items[Symbol.iterator]();
+it.next();// 返回{value:'zero',done:false}
+it.next();// 返回{value:'one',done:false}
+it.next();// 返回{value:'two',done:false}
+it.next();// 返回{value:undefined,done:true}
+
+// 可迭代的数据结构，下面是可迭代的值
+// Array String Map Set Dom元素
+// 数组Array和类型数组TypedArray
+for(let item of ['zero','one','two']){
+    console.log(item);
+}
+// zero
+// one
+// two
+const typedArray1 = new Int8Array(6);
+typedArray1[0] = 10;
+typedArray1[1] = 11;
+for(let item of typedArray1){
+    console.log(item);
+}
+// 10
+// 11
+// (4)0
+
+// String(遍历的是Unicode码)
+for(const c of 'z\uD83D\uDC0A'){
+    console.log(c);
+}
+// z
+// \uD83D\uDC0A
+
+// Map(主要迭代entries)，每个entries都会被编码为[key,value]的值
+const map = new Map();
+map.set(0,'zero');
+map.set(1,'one');
+for(let item of map){
+    console.log(item);
+}
+// [0,'zero']
+// [1,'one']
+
+// Set(对元素进行迭代)
+const set = new Set();
+set.add('zero');
+set.add('one');
+for(let item of set){
+    console.log(item);
+}
+// zero
+// one
+
+// arguments
+function args(){
+    for(let item of arguments){
+        console.log(item);
+    }
+}
+args('zero','one');
+// zero
+// one
+
+// 可迭代的数据结构
+const arrayLink = {0:'zero',1:'one',length:2}
+for(let item of Array.from(arrayLink)){
+    console.log(item);
+}
+// zero
+// one
+// let const var 可用于for...of
+
+// 4-3 class类  ????
+// 4-4 模块
+// -----------5.异步编程--------------------
+// 5-1 Promise对象
+// 5-2 Generator函数
+// 5-3 async函数
