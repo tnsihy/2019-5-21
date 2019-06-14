@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" placeholder="你的名字" v-model="name">
+        <h1>你好，{{name}}</h1>
+        <!-- v-html 有可能导致XSS攻击，所以要在服务端对用户提交的内容进行处理 -->
+        <span v-html="link"></span>
+        <!-- 使用v-pre -->
+        <p v-pre>{{这里的内容不会被编译}}</p>
+        <!-- {{}}中可以简单的运算、三元运算符等 -->
+        <div>
+            {{number / 10}}
+            {{isOK? '确定':'取消'}}
+            {{text.split(',').reverse().join(',')}}
+        </div>
+    </div>
+    <script>
+        var app = new Vue({
+            el:'#app',
+            // 挂载成功后，可以使用app.$el来访问该元素
+            data:{
+                name: '',
+                link:'<a href="#">这是一个超链接</a>',
+                number :100,
+                isOK : false,
+                text:'123,456'
+            }
+        })
+    </script>
+</body>
+</html>

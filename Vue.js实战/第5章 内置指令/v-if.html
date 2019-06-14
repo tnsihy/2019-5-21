@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+    <!-- v-if v-else-if v-else -->
+    <!-- v-else-if要紧跟v-if，v-else要紧跟v-else-if或v-if -->
+</head>
+<body>
+    <div id="app">
+        <!-- Vue在渲染元素时，处于效率考虑，会尽可能复用已有的元素而非重新渲染 -->
+        <!-- v-show不能在<template>上使用 -->
+        <!-- v-if根据表达式适当地销毁或重建元素及绑定的事件或子组件，当值为false时不会渲染 -->
+        <!-- v-show只是css属性切换，v-show适合频繁切换 -->
+        <templat v-if="type === 'name'">
+            <label>用户名：</label>
+            <input type="text" placeholder="请输入用户名">
+        </template>
+        <template v-if="type === 'mail'">
+            <label>邮箱：</label>
+            <input type="text" placeholder="请输入邮箱">
+        </template>
+        <button @click="handleToggleClick"></button>
+    </div>
+    <script>
+        var app = new Vue({
+            el:'#app',
+            data:{
+                type : 'name'
+            },
+            methods:{
+                handleToggleClick:function(){
+                    this.type === 'name' ? 'mail' : 'name'
+                }
+            }
+        })
+    </script>
+</body>
+</html>

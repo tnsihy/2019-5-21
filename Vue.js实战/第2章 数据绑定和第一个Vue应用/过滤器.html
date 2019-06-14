@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{date | formatDate}}
+        <!-- 过滤器可以串联 -->
+        {{ message | filterA | filterB}}
+        <!-- 传递参数，arg1和arg2是第二三个参数，第一个参数时数据本身 -->
+        {{ message | filterA('arg1','arg2')}}
+    </div>
+    <script>
+        // 在月份、日期、小时等小于10时前面补0
+        var padDate = function(value){
+            return value < 10 ? '0' + value : value;
+        }
+        var app = new Vue({
+            el:'#app',
+            data:{
+                date : new Date()
+            },
+            filters:{
+                formatDate : function(date){
+                    var year = date.getFullYear();  
+                    var month = padDate(date.getMonth() +1);
+                    var day = padDate(date.getDate());
+                    var hours = padDate(date.getHours());
+                    var minutes = padDate(date.getMinutes());
+                    var seconds = padDate(date.getSeconds());
+                    // 把整理好的数据返回
+                    return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+                }
+            },
+            mounted : function(){
+                var _this = this;
+                this.timer = setInterval(function(){
+                    // 修改数据
+                    _this.date = new Date(); 
+                },1000)
+            },
+            beforeDestroy:function(){
+                if(this.timer){
+                    clearInterval(this.timer);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

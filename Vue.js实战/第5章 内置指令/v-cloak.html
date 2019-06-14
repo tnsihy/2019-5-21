@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+    <!-- v-cloak解决初始化慢导致页面闪动的最佳实践 适合简单的项目 -->
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" v-cloak>{{message}}</div>
+    <script>
+        var app = new Vue({
+            el:'#app',
+            data:{
+                message: '这是一段文本'
+            }
+        })
+    </script>
+</body>
+</html>

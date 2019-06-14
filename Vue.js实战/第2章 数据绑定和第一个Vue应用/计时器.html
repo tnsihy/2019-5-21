@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">{{date}}</div>
+    <script>
+        var app = new Vue({
+            el:'#app',
+            data:{
+                date : new Date()
+            },
+            mounted :function(){
+                var _this = this; //确保作用域一致
+                this.timer = setInterval(function(){
+                    _this.date = new Date(); //修改数据date
+                },1000)
+            },
+            beforeDestroy : function(){
+                if(this.timer){
+                    clearInterval(this.timer);
+                }
+            }
+        })
+    </script>
+</body>
+</html>
