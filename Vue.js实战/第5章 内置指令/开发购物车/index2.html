@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>购物车示例</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <template v-if='list.length'>
+            <table>
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" v-model='checkBoxAll' @click='checkAll'></th>
+                        <th></th>
+                        <th>商品名称</th>
+                        <th>商品单价</th>
+                        <th>购买数量</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template v-for='(item,index) in list'>
+                        <tr>
+                            <td>{{classNa(index)}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr v-for="(initem,inindex) in item">
+                                <td><input type="checkbox" :value="initem.id" v-model='checkBoxModel' @click='checkOne(index,inindex)'></td>
+                                <td>{{initem.id}}</td>
+                                <td>{{initem.name}}</td>
+                                <td>{{initem.price}}</td>
+                                <td>
+                                    <button @click='handleReduce(index,inindex)' :disabled='item.count === 1' class="radius">-</button>
+                                    {{initem.count}}
+                                    <button @click='handleAdd(index,inindex)' class="radius">+</button>
+                                </td>
+                                <td>
+                                    <button @click='handleRemove(index,inindex)' class="radius">移除</button>
+                                </td>
+                            </tr>
+                    </template>
+                </tbody>
+            </table>
+            <div>{{ checkBoxModel }}</div>
+            <div>总价：￥{{totalPrice}}</div>
+        </template>
+        <template v-else>购物车为空</template>
+    </div>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+    <script src="index2.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 阻止单击事件冒泡 -->
+    <a @click.stop ='handle'></a>
+    <!-- 提交事件不再重载页面 -->
+    <a @submit.prevent = 'handle'></a>
+    <!-- 修饰符可以串联 -->
+    <a @click.stop.prevent = 'handle'></a>
+    <!-- 只有修饰符 -->
+    <a @submit.prevent></a>
+    <!-- 添加事件监听器时使用事件捕获模式 -->
+    <div @click.capture = 'handle'></div>
+    <!-- 只当事件在该元素本山触发时触发回调 -->
+    <div @click.self = 'handle'></div>
+    <!-- 在keyCode是13时调用 -->
+    <input type="text" @keyup.13 = 'submit'>
+    <!-- 可以自定义具体按键 可以使用@keyup.f1-->
+    Vue.config.keyCodes.f1 = 112;
+    <!-- Shift + S -->
+    <input type="text" @keyup.shift.83 = 'handleSave'>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <template v-for="book in books">
+                <li>书名：{{book.name}}</li>
+                <li>作者：{{book.author}}</li>
+            </template>
+        </ul>
+    </div>
+    <script>
+        var app = new Vue({
+            el:'#app',
+            data:{
+                books:[
+                    {name:'《Vue.js实战》',author:'梁灏'},
+                    {name:'《JavaScript语言精髓》',author:'Douglas'},
+                    {name:'《JavaScript高级语言程序》',author:'Nicholas'}
+                ]
+            }
+        })
+        app.books = app.books.filter(function(item){
+            return item.name.match(/JavaScript/);
+        })
+        // 通过以下两种方式Vue是不能检测的，也不会触发视图更新
+        // 通过索引直接设置项 ：
+        app.books[3] = {name:'《计算机网络》',author:'谢希仁'};
+        // 修改数据长度：
+        app.books.length = 1;
+        app.books.splice(1);
+        
+        // 解决该问题可以：
+        Vue.set(app.books,3,{
+            name:'《计算机网络》',
+            author:'谢希仁'
+        })
+        // 默认没有导入Vue的，可以使用$set 这里的this指app
+        this.$set(app.books,3,{
+            name:'《计算机网络》',
+            author:'谢希仁'
+        })
+        // 或者
+        app.books.splice(3,1,{
+            name:'《计算机网络》',
+            author:'谢希仁'
+        })
+    </script>
+</body>
+</html>
