@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- .lazy会转变为在change事件中同步，失焦时或按回车才更新 -->
+        <input type="text" v-model.lazy='message'>
+        <p>{{message}}</p>
+        <hr>
+        <!-- .number可以将输入转换为Number类型，否则输入的是数字类型也会是String类型 -->
+        <input type="text" v-model.number='message1'>
+        <p>{{typeof message1}}</p>
+        <hr>
+        <!-- .trim自动过滤输入的首尾空格 -->
+        <input type="text" v-model.trim='message2'>
+        <p>{{message2}}</p>
+    </div>
+    <script>
+        var app = new Vue({
+            el:'#app',
+            data:{
+                message:'',
+                message1:123,
+                message2:''
+            }
+        })
+    </script>
+</body>
+</html>

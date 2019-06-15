@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 拼音阶段不显示 -->
+        <textarea v-model='text' placeholder="输入..."></textarea>
+        <p>输入的内容是：</p>
+        <p style='white-space: pre'>{{text}}</p>
+        <!-- 实时更新使用@input -->
+        <input type="text" @input='handleInput' placeholder="输入...">
+        <p>输入的内容是：{{message}}</p>
+
+        <!-- 单选按钮单独使用 直接使用v-bind绑定布尔类型值-->
+        <input type="radio" :checked='picked'>
+        <label>单选按钮</label>
+        <hr>
+        <!-- 如果是组合实现互斥 就需要v-model配合value来使用-->
+        <input type="radio" value="HTML" v-model="pick">
+        <label>HTML</label>
+        <input type="radio" value="CSS" v-model="pick">
+        <label>CSS</label>
+        <input type="radio" value="JavaScript" v-model="pick">
+        <label>JavaScript</label>
+        <p>选择的项是：{{pick}}</p>
+        <hr>
+
+        <!-- 复选框 组合使用 -->
+        <input type="checkbox" value="HTML" v-model="check">
+        <label>HTML</label>
+        <input type="checkbox" value="CSS" v-model="check">
+        <label>CSS</label>
+        <input type="checkbox" value="JavaScript" v-model="check">
+        <label>JavaScript</label>
+        <p>选择的项是：{{check}}</p>
+        <hr>
+        <hr>
+
+        <!-- 下拉选择器 -->
+        <select v-model='select'>
+            <option>HTML</option>
+            <option>CSS</option>
+            <!-- 如果有value值优先匹配value值 -->
+            <option value="JS">JavaScript</option>
+        </select>
+        <p>选择的项是：{{select}}</p>
+        <hr>
+
+        <!-- 下拉选择器 多选multiple -->
+        <select v-model='selected' multiple>
+            <option v-for="option in options" :value="option.value">{{option.text}}</option>
+        </select>
+        <p>选择的项是：{{selected}}</p>
+
+        <!-- v-model绑定一个静态字符串或者布尔值 v-bind绑定动态数据 -->
+        <input type="radio" v-model="demo" :value="value">
+        <label>单选按钮</label>
+        <!-- 在选中时app.demo = app.value 值都是123 -->
+        <p>{{demo}}</p>
+        <p>{{value}}</p>
+        <hr>
+
+        <!-- 复选框 -->
+        <!-- 勾选时app.toggle = app.value1;未勾选时app.toggle = app.value2 -->
+        <input type="checkbox" v-model='toggle' :true-value='value1' :false-value='value2'>
+        <label>复选框</label>
+        <p>{{toggle}}</p>
+        <p>{{value1}}</p>
+        <p>{{value2}}</p>
+        <hr>
+
+        <!-- 选择列表 -->
+        <!-- app.demo3是一个Object，所以app.demo3.number = 123 -->
+        <select v-model='demo2'>
+            <option :value='{number:123}'>123</option>
+        </select>
+        {{demo2.number}}
+    </div>
+    <script>
+        var app = new Vue({
+            el:'#app',
+            data:{
+                text:'',
+                message:'',
+                picked : true,
+                pick: 'HTML',
+                check: ['HTML'],
+                select:'CSS',
+                selected:'HTML',
+                options:[
+                    {text:'HTML',value:'HTML'},
+                    {text:'CSS',value:'CSS'},
+                    {text:'JavaScript',value:'JS'}
+                ],
+                demo:false,
+                value:123,
+                toggle:false,
+                value1:'a',
+                value2:'b',
+                demo2:''
+            },
+            methods:{
+                handleInput(e){
+                    this.message = e.target.value;
+                }
+            }
+        })
+    </script>
+</body>
+</html>
