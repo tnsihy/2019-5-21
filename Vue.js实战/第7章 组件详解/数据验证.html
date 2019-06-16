@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+</head>
+<body>
+    <!-- 
+        一般当你的组件需要提供给别人使用时，推荐都进行数据验证。
+        比如某个数据必须是数字类型，如果传入字符串，就会在控制台发出警告 
+    -->
+    <script>
+        Vue.component('my-component',{
+            props:{
+                // 必须是数字类型
+                propA:Number,
+                // 必须是字符串或数字类型
+                propB:[String,Number],
+                // 布尔值，如果没有定义，默认值就是true
+                propC:{
+                    type:Boolean,
+                    default:true
+                },
+                // 数字，而且是必传
+                propD:{
+                    type:Number,
+                    required:true
+                },
+                // 如果是数组或对象，默认值必须是一个函数来返回
+                propE:{
+                    type:Array,
+                    default:function(){
+                        return [];
+                    }
+                },
+                // 自定义一个验证函数
+                propF:{
+                    validator:function(value){
+                        return value > 10;
+                    }
+                }
+                // 验证的type类型可以是：String Number Boolean Obeject Array Function
+                // type也可以是一个自定义构造器，使用instanceof检测
+            }
+        })
+    </script>
+</body>
+</html>

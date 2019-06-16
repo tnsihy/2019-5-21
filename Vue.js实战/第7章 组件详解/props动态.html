@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model='parentMessage'>
+        <hr>
+        <!-- 动态绑定props值，当父组件发生变化时，也会传递给子组件 -->
+        <my-component :message='parentMessage'></my-component>
+    </div>
+    <script>
+        Vue.component('my-component',{
+            props:['message'],
+            template:`<div>{{message}}</div>`
+        })
+        var app = new Vue({
+            el:'#app',
+            data:{
+                parentMessage:''
+            }
+        })
+        // 要传递数字、布尔值、数组、对象，如果不使用v-bind，传递的仅仅是字符串！
+    </script>
+</body>
+</html>

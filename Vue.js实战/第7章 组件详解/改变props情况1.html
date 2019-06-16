@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+    <!-- 1.父组件传递初始值，子组件将其保存，在自己的作用域下可以随意使用个修改 -->
+</head>
+<body>
+    <div id="app">
+        <my-component :init-count='1'></my-component>
+    </div>
+    <script>
+        Vue.component('my-component',{
+            props:['initCount'],
+            template:`<div>{{count}}</div>`,
+            data:function(){
+                return {
+                    count:this.initCount
+                }
+            }
+        })
+        var app = new Vue({
+            el:'#app'
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>总数：{{total}}</p>
+        <!-- 可以用.native修饰符表示监听的是一个原生事件，监听的是该组件的根元素 -->
+        <my-component v-on:click.native='handleClick'></my-component>
+    </div>
+    
+    <script>
+        Vue.component('my-component',{
+            template:
+            `
+                <div>
+                    <button>+</button>
+                </div>
+            `
+        })
+        var app = new Vue({
+            el:'#app',
+            data:{
+                total:0
+            },
+            methods:{
+                handleClick:function(){
+                    this.total ++;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
