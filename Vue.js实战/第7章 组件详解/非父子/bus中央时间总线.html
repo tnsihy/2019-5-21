@@ -13,6 +13,8 @@
         <component-a></component-a>
     </div>
     <script>
+        var bus = new Vue();
+        
         Vue.component('component-a',{
             template:`<button @click='handleEvent'>传递事件</button>`,
             methods:{
@@ -21,7 +23,7 @@
                 }
             }
         })
-        var bus = new Vue({
+        var app = new Vue({
             el:'#app',
             data:{
                 message:''
