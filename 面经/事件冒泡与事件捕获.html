@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <body>
+        <div id="id1" style="height:400px;  border:1px solid #000;">
+            <div id="id2" style="height:200px;  border:1px solid #000;">
+                <div id="id3" style="height:50px;  border:1px solid #000;"></div>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript">
+        var obj1 = document.getElementById('id1');
+        obj1.addEventListener('click', function () {
+            alert('id1');
+        }, false);
+
+        var obj2 = document.getElementById('id2');
+        obj2.addEventListener('click', function () {
+            alert('id2');
+        }, true);
+
+        var obj3 = document.getElementById('id3');
+        obj3.addEventListener('click', function () {
+            alert('id3');
+        }, true);
+        /*如果第三个参数为true，则事件在捕获阶段执行，如果第三个参数为false，则事件在冒泡阶段执行*/
+        // 点击id3  弹出顺序：id2 id3 id1
+    </script>
+</body>
+
+</html>
