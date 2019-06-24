@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src="https://vuejs.org/js/vue.min.js"></script>
-    <!-- 非父子组件通信，除了中央事件总线bus以外，还有两种方法可以实现组件间通信：父链和子组件 -->
+    <!-- 在业务中应尽量避免子组件依赖父组件的数据，更不应该去主动修改数据，这样使得父子组件紧耦合。
+     父子组件最好还是通过props和$emit来通信。
+    -->
 </head>
 <body>
     <div id="app">
@@ -14,13 +16,12 @@
         <component-a></component-a>
     </div>
     <script>
-        var bus = new Vue();
-        
         Vue.component('component-a',{
-            template:`<button @click='handleEvent'>传递事件</button>`,
+            template:`<button @click="handleEvent">通过父链直接修改数据</button>`,
             methods:{
                 handleEvent:function(){
-                    bus.$emit('on-message','来自组件component-a的内容')
+                    // 访问到父链后，可以做任何操作，比如直接修改数据
+                    this.$parent.message = '来自组件component-a的内容'
                 }
             }
         })
@@ -28,16 +29,7 @@
             el:'#app',
             data:{
                 message:''
-            },
-            // 监听来自bus的事件on-message
-            mounted:function(){
-                var _this = this;
-                // 在实例初始化时，监听来自bus实例的事件
-                bus.$on('on-message',function(msg){
-                    _this.message = msg;
-                })
             }
-            
         })
     </script>
 </body>
