@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 
+        document.domain+iframe跨域 仅限主域相同，子域不同的跨域应用场景
+     -->
+</head>
+<body>
+    <!-- 在www.damonare.cn/a.html中 -->
+    <!-- 报错：Uncaught DOMException: Blocked a frame with origin "http://127.0.0.1:8080" from accessing a cross-origin frame. -->
+    <iframe src="http://damonare.cn/b.html" id="iframe" onload="test()"></iframe>
+    <script>
+        document.domain = 'damonare.cn'; //设置成主域
+        function test(){
+
+            alert(document.getElementById('iframe').contentWindow);
+            /*
+            var iframe = document.getElementById("iframe");
+            var win = iframe.contentWindow;//可以获取到iframe里的window对象，但该window对象的属性和方法几乎是不可用的
+            var doc = win.document;//这里获取不到iframe里的document对象
+            var name = win.name;//这里同样获取不到window对象的name属性
+            */
+        }
+    </script>
+    <!-- 在www.dammonare.cn/b.html中 -->
+    <script>
+        document.domain = 'damonare.cn';//在iframe载入这个页面也设置document.domain，使之与主页面的document.domain相同
+    </script>
+</body>
+</html>

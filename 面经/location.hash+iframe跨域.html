@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 
+        通过location.hash跨域 原理改变URL的hash部分来进行双向通信
+        每个window通过改变其他window的location来发送消息（由于两个页面不在同一个域下IE、Chrome不允许修改parent.location.hash的值，所以要借助于父窗口域名下的一个代理iframe），并通过监听自己的URL的变化来接收消息。
+     -->
+</head>
+<body>
+    <!-- 
+        父页面是baidu.com/a.html  iframe嵌入google.com/b.html 
+        a.html传递数据到b.html
+            a.html下修改iframe的src为google.com/b.html#paco
+            b.html监听到url发生变化，触发相应操作
+
+        b.html传递数据到a.html
+        由于两个页面不在同一个域下IE、Chrome不允许修改parent.location.hash的值，所以要借助于父窗口域名下的一个代理iframe
+            b.html下创建一个隐藏的iframe，此iframe的src是baidu.com域下的，并挂上要传送的hash数据，如src="www.baidu.com/proxy.html#…"
+            proxy.html监听到url发生变化，修改a.html的url（因为a.html和proxy.html同域，所以proxy.html可修改a.html的url hash）
+            a.html监听到url发生变化，触发相应操作
+
+    -->
+    <!-- b.html页面的关键代码如下: -->
+    try {  
+        parent.location.hash = 'data';  
+    } catch (e) {  
+        // ie、chrome的安全机制无法修改parent.location.hash，  
+        var ifrproxy = document.createElement('iframe');  
+        ifrproxy.style.display = 'none';  
+        ifrproxy.src = "http://www.baidu.com/proxy.html#data";  
+        document.body.appendChild(ifrproxy);  
+    }
+    proxy.html页面的关键代码如下 :
+    //因为parent.parent（即baidu.com/a.html）和baidu.com/proxy.html属于同一个域，所以可以改变其location.hash的值  
+    parent.parent.location.hash = self.location.hash.substring(1);
+</body>
+</html>
