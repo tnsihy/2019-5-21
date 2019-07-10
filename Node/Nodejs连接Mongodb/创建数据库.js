@@ -2,6 +2,7 @@
  * 创建Mongodb数据库：
  *      创建一个MongodbClient对象 配置好URL和端口号
  * 如果数据库不存在，MongoDB 将创建数据库并建立连接
+ * 要先启动mongodb  cmd 然后在命令行输入mongod
  */
 
 var MongoClient = require('mongodb').MongoClient; 
