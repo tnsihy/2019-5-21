@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ajax</title>
+    <script src="./ajax.js"></script>
+</head>
+<body>
+    <script>
+    ajax({
+            method: 'post',
+            url: 'http://127.0.0.1:3000',
+            data: {
+                name: 'jgchen',
+                stuNo: 2016130201,
+                method: 'post'
+            },
+            success(res) {
+                console.log('POST success:',res);
+                var div = document.createElement('div');
+                div.innerHTML = `<span>${res.data.name}</span><br/><img src='${res.data.avatar}' />`
+                document.body.appendChild(div)
+            },
+            error(err) {
+                console.log(err);
+            }
+        })
+    </script>
+</body>
+</html>
