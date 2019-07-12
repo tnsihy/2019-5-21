@@ -16,16 +16,17 @@ const Koa = require('koa');
 const app = new Koa();
 
 app.use(async (ctx, next) => {
+    console.log(ctx.url)
     if (ctx.url === '/index') {
         //写入cookie操作
         ctx.cookies.set('MyName', 'tnsihy', {
-            domain: '127.0.0.1',
+            domain: 'localhost',
             // 这里设置了/index 意味着只有当网址是/index/...时cookie存在
             path: '/index',
             maxAge: 1000 * 60 * 60 * 24,
             expires: new Date('2020-12-31'),
             httpOnly: false,
-            overwrite: false
+            overwrite: true
         });
         ctx.response.body = 'Cookie is OK!';
     } else {
