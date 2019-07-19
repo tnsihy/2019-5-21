@@ -9,17 +9,20 @@
 </head>
 <body>
     <div id="app">
-        <input type="text" v-focus>
+        <div v-test="{msg:'Hello',name:'tnsihy'}"></div>
     </div>
     <script>
-        Vue.directive('focus',{
-            inserted:function(el){
-                el.focus()
+        Vue.directive('test',{
+            bind:function(el,binding,vnode){
+                console.log(binding.value.msg);
+                console.log(binding.name)   // test
+                console.log(binding.value.name);  // tnsihy
             }
         })
+
         var app = new Vue({
-            el:'#app'
-        })
+        el:'#app'
+    })    
     </script>
 </body>
 </html>

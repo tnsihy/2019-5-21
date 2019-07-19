@@ -8,11 +8,23 @@
     <script src="https://vuejs.org/js/vue.min.js"></script>
     <!-- 
         自定义指令的选项由几个钩子函数构成，每个都是可选的。
-        bind
-        inserted 被绑定元素插入父节点时使用
-        update 被绑定元素所在模板更新时调用
-        componentUpdated 被绑定元素所在模板完成一次更新周期时调用
-        unbind
+        - bind 指令第一次绑定到元素时调用
+        - inserted 被绑定元素插入父节点时使用
+        - update 被绑定元素所在模板更新时调用
+        - componentUpdated 被绑定元素所在模板完成一次更新周期时调用
+        - unbind
+
+        每个钩子函数都有几个参数可用
+        - el 指令所绑定的元素
+        - binding 一个对象
+            - name 指令名 不包括前缀
+            - value 指令绑定值
+            - oldValue (update和componentUpdate可用)
+            - expression 绑定值的字符串形式
+            - arg 传给指令的参数
+            - modifiers 一个包含修饰符的对象 v-my-directive.foo.bar  -> {foo:true,bar:true}
+        - vnode Vue编译生成的虚拟节点
+        - oldVnode 上一个虚拟节点(update和componentUpdate可用)
      -->
 </head>
 <body>

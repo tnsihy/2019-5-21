@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- v-cloak只要在el挂载的标签上添加就可以 解决刷新或加载出现闪烁问题 -->
+    <div id="app" v-cloak>
+        <div class="main" v-clickoutside="handleClose">
+            <button @click="show = !show">点击显示下拉菜单</button>
+            <div class="dropdown" v-show="show">
+                <p>下拉框的内容，点击外面区域可以关闭</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+    <script src="./clickoutside.js"></script>
+    <script src="./index.js"></script>
+</body>
+</html>
