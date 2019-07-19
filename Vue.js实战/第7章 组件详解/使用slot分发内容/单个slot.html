@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <child-component>
+            <p>来自父组件的内容</p>
+        </child-component>
+    </div>
+    <script>
+        Vue.component('child-component',{
+            template:`
+                <div>
+                    <slot>
+                        <p>如果父组件没有插入内容，我将作为默认输出</p>
+                    </slot>
+                </div>
+            `
+        })
+
+        var app = new Vue({
+            el:'#app',
+        })
+    </script>
+</body>
+</html>

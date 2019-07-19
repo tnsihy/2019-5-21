@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+</head>
+<body>
+    <!-- 
+        Vue.extend和$mount一起去手动挂载
+     -->
+    <div id="mount-div">
+
+    </div>
+    <script>
+        var myComponent = Vue.extend({
+            template:`<div>Hello:{{name}}</div>`,
+            data(){
+                return {
+                    name:'tnsihy'
+                }
+            }
+        })
+
+        new myComponent().$mount('#mount-div')
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+    <title>Document</title>
+    <!-- 
+        <component>用来动态挂载不同组件
+     -->
+</head>
+<body>
+    <div id="app">
+        <component :is="currentView"></component>
+        <button @click="handleChangeClick('A')">切换到A</button>
+        <button @click="handleChangeClick('B')">切换到B</button>
+        <button @click="handleChangeClick('C')">切换到C</button>
+    </div>
+    <script>
+        var app = new Vue({
+            el:'#app',
+            components:{
+                comA:{
+                    template:`<div>组件A</div>`
+                },
+                comB:{
+                    template:`<div>组件B</div>`
+                },
+                comC:{
+                    template:`<div>组件C</div>`
+                }
+            },
+            data:{
+                currentView : 'comC'
+            },
+            methods:{
+                handleChangeClick:function(value){
+                    this.currentView = 'com' + value
+                }
+            }
+        })
+    </script>
+</body>
+</html>

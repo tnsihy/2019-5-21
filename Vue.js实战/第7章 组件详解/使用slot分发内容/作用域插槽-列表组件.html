@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <my-list :books="books">
+            <template slot="book" scope="props">
+                <li>{{props.bookName}}</li>
+            </template>
+        </my-list>
+    </div>
+    <script>
+
+        Vue.component('my-list',{
+            props:['books'],
+            template:`
+                <ul>
+                    <slot name="book" v-for="book of books" :book-name="book.name">
+                        这里是默认内容
+                    </slot>
+                </ul>
+            `
+        })
+
+        var app = new Vue({
+            el:'#app',
+            data:{
+                books:[{
+                    name:'《Vue.js实战》'
+                },{
+                    name:'《JavaScript语言精粹》'
+                },{
+                    name:'《JavaScript高级程序设计》'
+                }]
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+    <!-- 
+        递归组件使用用来开发 级联选择器和树形控件等
+     -->
+</head>
+<body>
+    <div id="app">
+        <child-component :count="1"></child-component>
+    </div>
+    <script>
+            Vue.component('child-component',{
+                name:'child-component',
+                props:['count'],
+                // 需要给一个判断条件否则会报错 栈溢出
+                template:`
+                <div class="child">
+                {{this.count}}
+                    <child-component :count="count+1" v-if="count < 3"></child-component>
+                </div>
+                `
+            })
+
+        var app = new Vue({
+            el:'#app'
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div id="div" v-if="showDiv">这是一段文本</div>
+        <button @click="getText">获取div内容</button>
+    </div>
+    <script>
+        var app = new Vue({
+            el:'#app',
+            data:{
+                showDiv : false
+            },
+            methods:{
+                /* 报错
+                getText(){
+                    this.showDiv = true
+                    var text = document.getElementById('div').innerHTML
+                    console.log(text)
+                }
+                在执行this.showDiv = true时div还未被创建 直到下一个Vue事件循环时才开始创建
+                或者使用setTimeout可以解决
+                $nextTick是为了知道DOM什么时候更新完成
+                */
+                getText(){
+                    this.showDiv = true
+                    this.$nextTick(()=>{
+                        var text = document.getElementById('div').innerHTML
+                        console.log(text)
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+</html>

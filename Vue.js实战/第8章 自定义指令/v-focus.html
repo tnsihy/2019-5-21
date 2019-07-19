@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+    <!-- 
+        自定义指令的选项由几个钩子函数构成，每个都是可选的。
+        bind
+        inserted 被绑定元素插入父节点时使用
+        update 被绑定元素所在模板更新时调用
+        componentUpdated 被绑定元素所在模板完成一次更新周期时调用
+        unbind
+     -->
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+        // 全局注册
+        Vue.directive('focus',{
+            // 指令选项
+        })
+
+        // 局部注册
+        var app = new Vue({
+            el:'#app',
+            directive:{
+                focus:{
+                    // 指令选项
+                }
+            }
+        })
+    </script>
+</body>
+</html>
