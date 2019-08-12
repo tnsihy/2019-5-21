@@ -6,34 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <style>
-
-    </style>
 </head>
 
 <body>
-    <form action="javascript:void(0)">
-        <input id="input" type="text" onchange="myFunction()">
-        <select name="select" id="select" onchange="myFunction()">
-            <option value="2">2</option>
-            <option value="0">0</option>
-            <option value="1">1</option>
-        </select>
-        <button type="submit">提交</button>
-    </form>
+    <script>
+        async function timeout(flag) {
+            if (flag) {
+                return 'Hello World'
+            } else {
+                throw 'my god,failure'
+            }
+        }
+        console.log(timeout(true));
+        console.log(timeout(false));
+    </script>
 </body>
-<script>
-    var select = document.getElementById('select');
-    var input = document.getElementById('input');
-    function myFunction() {
-        var inputValue = input.value;
-        var index = select.selectedIndex;
-        // 获取到0 1 2 
-        // console.log(inputValue);
-        // console.log(select.options[index].value);
-        document.writeln(inputValue);
-        document.writeln(select.options[index].value)
-    }
-</script>
 
 </html>
