@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>事件流</title>
+</head>
+<body>
+    <!-- 
+        DOM2事件流包括3个阶段：
+            事件捕获阶段  document -> html -> body -> btn
+            处于目标阶段
+            事件冒泡阶段
+
+        document document.documentElement document.body 三者之间的关系：
+            document代表的是整个html页面
+            document.documentElement代表的是<html>标签
+            document.body代表的是<body>标签
+
+        jQuery常用事件：
+            鼠标事件：
+            表单事件：
+                change() 表单元素发生改变时触发事件 -- 仅限于<input><textarea><select>
+                select() 文本元素发生改变时触发事件 -- 仅限于input type类型为text和textarea表单元素
+                submit() 表单元素发生改变时触发事件 -- form表单有默认的submit行为，当input type=submit时点击按钮会触发form的默认action行为，可以调用jquery的e.preventDefault()阻止默认事件。
+     -->
+     <button id="btn">Hello</button>
+     <script>
+         window.onload = function(){
+             var oBtn = document.getElementById('btn');
+
+            //<button> 
+             oBtn.addEventListener('click',function(){
+                 console.log('btn处于事件捕获阶段');
+             },true);
+
+             oBtn.addEventListener('click',function(){
+                 console.log('btn处于事件冒泡阶段');
+             },false);
+
+
+             //document
+             document.addEventListener('click',function(){
+                 console.log('document处于事件捕获阶段');
+             },true);
+
+             document.addEventListener('click',function(){
+                 console.log('document处于事件冒泡阶段');
+             },false);
+
+
+             //html
+             document.documentElement.addEventListener('click',function(){
+                 console.log('html处于事件捕获阶段');
+             },true);
+
+             document.documentElement.addEventListener('click',function(){
+                 console.log('html处于事件冒泡阶段');
+             },false);
+
+
+             //body
+             document.body.addEventListener('click',function(){
+                 console.log('body处于事件捕获阶段');
+             },true);
+
+             document.body.addEventListener('click',function(){
+                 console.log('body处于事件冒泡阶段');
+             },false);
+         }
+     </script>
+</body>
+</html>
