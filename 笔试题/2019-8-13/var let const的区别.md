@@ -102,7 +102,7 @@ a is not defined
 ```
 var tmp = 123;
 if(true){
-    tmp = 'Hello';  //Error
+    tmp = 'Hello';  //报错
     let tmp;
 }
 ```
