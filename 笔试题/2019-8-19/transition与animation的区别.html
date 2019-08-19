@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>transition与animation的区别</title>
+    <!-- 
+        transition是CSS3过渡元素
+            当鼠标经过时触发且只发生一次，不重复
+     -->
+
+    <style>
+        /* 1.写button样式 */
+        .button {
+            border: none;
+            background-color: red;
+            color: white;
+            padding: 15px 20px;
+            font-size: 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 150px;
+        }
+
+        /* 2.鼠标移动时字体左移 */
+        .button:hover span {
+            padding-right: 25px;
+        }
+
+        /* 3.给予字体过渡时间 */
+        .button span {
+            position: relative;
+            display: inline-block;
+            transition: .5s;
+        }
+
+        /* 4.给字体后边添加内容 先设置为透明且设置位置 */
+        .button span::after {
+            content: "»";
+            opacity: 0;
+            right: -20px;
+            position: absolute;
+
+        }
+
+        /* 5.当鼠标移动时透明为1 位置  */
+        .button:hover span:after {
+            opacity: 1;
+            right: 0;
+            transition: .5s;
+        }
+        
+        /* 使用animation */
+        .animation {
+            width: 100px;
+            height: 100px;
+            background: red;
+            animation: tnsihy 3s;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes tnsihy {
+
+            0% {
+                background: red;
+            }
+
+            25% {
+                background: yellow;
+            }
+
+            50% {
+                background: blue;
+            }
+
+            100% {
+                background: green;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button class="button"><span>我是按钮</span></button>
+    <hr>
+    <div class="animation"></div>
+    <!-- 
+        不同点：
+主要体现在触发方式，循环方式，如何定义复杂的动画，跟JS的搭配使用
+(1)触发方式
+transition只作为一种反应过渡到一个CSS属性已经改变了。一个常见的场景是你使用:hover伪类来改变CSS属性的值；触发一个过渡的另一种方法是使用JavaScript以编程方式添加或删除CSS类来模拟一个CSS属性改变。排我们做一个属性改变的方法。
+animation动画则不需要任何显式的触发。一旦你定义动画,它将自动开始播放。
+
+
+(2)循环
+animation这是非常简单的。动画可以很容易地进行循环通过设置animation-iteration-count财产。您可以指定一个固定的你想让你的动画重复的次数；
+transition过渡没有一个属性,用于指定多少次他们可以运行。当触发时,过渡只运行一次。你可以过渡循环通过摆弄transitionEnd事件,但这并不是特别简单,尤其是相比,动画。
+
+
+(3)定义中间点/关键帧
+animation动画,你可以定义关键帧,给你更多的控制你的CSS属性值不仅仅是开始和结束；
+transition一个过渡,你没有太多的控制最终的结果，只有start和end两个时间帧；
+
+
+(4)指定前面的属性
+transition：如果变化涉及到两个属性，则需要多次指定属性
+#mainContent {
+    background-color: #CC0000;
+    transition:background-color .5s ease-in, width .5s ease-in
+}
+#mainContent:hover {
+    cursor: pointer;
+    background-color: #000000;
+    width: 500px;
+}
+
+
+animation：则通过帧添加任何属性变化
+keyframes imageSlide {
+    0% {
+        left: -150px;
+    }
+
+
+    20% {
+        left: 50px;
+        height: 200px;
+    }
+
+
+    80% {
+        left: 200px;
+        height:300px;
+    }
+
+
+    100% {
+        left: 600px;
+        background-color:#FFFFFF;
+    }
+}
+
+
+(5)与JS的相互作用
+transition经常跟JS搭配，让js改动属性，从而触发transition的操作
+ ———————————————— 
+版权声明：本文为CSDN博主「adobe1992」的原创文章，遵循CC 4.0 by-sa版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/liaozhongping/article/details/79511820
+     -->
+</body>
+
+</html>

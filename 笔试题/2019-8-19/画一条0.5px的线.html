@@ -1,0 +1,39 @@
+<!DOCType html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        .hr {
+            width: 300px;
+            background-color: #000;
+        }
+
+        .hr.half-px {
+            height: 0.5px;
+        }
+
+        .hr.one-px {
+            height: 1px;
+        }
+
+        .hr.scale-half {
+            height: 1px;
+            transform: scaleY(0.5);
+            transform-origin: 50% 100%;
+        }
+
+    </style>
+</head>
+
+<body>
+    <p>常规设置 0.5px</p>
+    <div class="hr half-px"></div>
+    <p>常规设置 1px</p>
+    <div class="hr one-px"></div>
+    <!-- 如何正确画一条0.5px的线 以下两种方法: -->
+    <p>常规 + transform:scale()设置 即1px + scaleY(0.5)</p>
+    <div class="hr scale-half"></div>
+</body>
+
+</html>
