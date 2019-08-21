@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>父级div定义overflow:hidden</title>
+    <style>
+        .div1 {
+            border: 1px solid red;
+            overflow: hidden;
+        }
+
+        .div2 {
+            height: 100px;
+            margin-top: 10px;
+            border: 1px solid blue;
+        }
+
+        .left {
+            float: left;
+            width: 20%;
+            height: 200px;
+            background-color: yellow;
+        }
+
+        .right {
+            float: right;
+            width: 30%;
+            height: 80px;
+            background-color: grey;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="div1">
+        <div class="left">left</div>
+        <div class="right">right</div>
+    </div>
+    <div class="div2">div2</div>
+</body>
+
+</html>

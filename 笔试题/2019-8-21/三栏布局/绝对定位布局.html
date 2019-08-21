@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 
+        1.给container设置position:relative绝对定位的参照是第一个position不为static的祖先元素
+        2.给left和right设置浮动
+        3.container设置overflow:hidden清除浮动  center设置绝对定位position:absolute
+        4.设置top:0 bottom:0使其高度撑开
+
+        缺点：依赖于left和right的高度，如果高度不够会被压缩
+     -->
+    <style>
+        .container {
+            position: relative;
+            overflow: hidden;
+            /* 清除浮动 */
+        }
+
+        .left {
+            background-color: red;
+            float: left;
+            min-width: 200px;
+            height: 200px;
+        }
+
+        .center {
+            background-color: yellow;
+            position: absolute;
+            left: 200px;
+            top: 0;
+            right: 200px;
+            bottom: 0;
+        }
+
+        .right {
+            background-color: blue;
+            float: right;
+            min-width: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 优先渲染 -->
+        <div class="center">center</div>
+        <div class="left">left</div>
+        <div class="right">right</div>
+    </div>
+</body>
+
+</html>

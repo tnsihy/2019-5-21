@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 
+        1.给container设置display:flex
+        2.给left和right设置宽度width:200px;  给center设置width:100% 
+        3.给left和right设置flex-shrink:0 不缩放 相当于设置min-width
+        4.给left center right设置order排序 从0开始
+     -->
+    <style>
+        .container {
+            display: flex;
+        }
+
+        .left {
+            background-color: red;
+            width: 200px;
+            /* 不缩放 */
+            flex-shrink: 0;
+            order:0;
+            height:100px;
+        }
+
+        .center {
+            background-color: yellow;
+            width: 100%;
+            order:1;
+        }
+
+        .right {
+            background-color: blue;
+            width: 200px;
+            /* 不缩放 */
+            flex-shrink: 0;
+            order:2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 优先渲染 -->
+        <div class="center">center</div>
+        <div class="left">left</div>
+        <div class="right">right</div>
+    </div>
+</body>
+
+</html>

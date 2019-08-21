@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>圣杯布局</title>
+    <!-- 
+        1.给conatiner设置overflow:hidden使其成为一个BFC，使三栏浮动并相对定位
+        2.给left和right设置width:200px  center设置width:100%
+        3.margin-left:-100%使left浮动到center上面
+        4.由于center的左右侧被left和right覆盖，给container设置padding:0 200px;
+        5.由于left和right往里缩，所以分别设置left:-200px;  right:-200px;去补充padding后的空白值
+
+        缺点是：缩小到一定程度时，布局会混乱。
+     -->
+    <style>
+        .container {
+            overflow: hidden;
+            padding:0 200px;
+        }
+
+        .container>div {
+            position: relative;
+            float: left;
+            height: 100px;
+        }
+
+        .left {
+            background-color: red;
+            width: 200px;
+            margin-left:-100%;
+            left:-200px;
+        }
+
+        .center {
+            background-color: yellow;
+            width: 100%;
+        }
+
+        .right {
+            background-color: blue;
+            width: 200px;
+            margin-left:-200px;
+            right:-200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 优先渲染 -->
+        <div class="center">center</div>
+        <div class="left">left</div>
+        <div class="right">right</div>
+    </div>
+</body>
+
+</html>

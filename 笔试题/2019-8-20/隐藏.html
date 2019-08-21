@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>隐藏</title>
+    <style>
+        .one,.two,.three{
+            border:1px solid red;
+            width:100px;
+            height:100px;
+        }
+
+        .one{
+            visibility: hidden;
+        }
+        
+        .two{
+            opacity: 0;
+        }
+
+        .three{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- visibility:hidden -->
+    <div class="one"></div>
+    <span>visibility:hidden 隐藏后不会改变页面布局，但不会触发该元素绑定的事件</span>
+    <hr>
+
+    <!-- opacity:0 -->
+    <div class="two"></div>
+    <span>opacity:0 隐藏后不会改变页面布局，会触发该元素绑定的事件</span>
+    <hr>
+
+    <!-- display:none -->
+    <div class="three"></div>
+    <span>display:none 隐藏后会改变页面布局</span>
+    <hr>
+
+    <script>
+        var one = document.getElementsByClassName('one')[0];
+        one.addEventListener('click',function(){
+            console.log('one');
+        })
+
+        var two = document.getElementsByClassName('two')[0];
+        two.addEventListener('click',function(){
+            console.log('two');
+        })
+
+    </script>
+</body>
+</html>

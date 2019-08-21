@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 
+        1.给container设置display:grid
+        2.设置三栏的高度 grid-template-rows:100px;
+        3.设置三栏的宽度，中间自适应，两边固定 grid-template-columns:200px auto 200px;
+     -->
+    <style>
+        .container {
+            display: grid;
+            /* 设置三栏高度 */
+            grid-template-rows: 100px;
+            /* 设置三栏的宽度，中间自适应，两边固定 */
+            grid-template-columns: 200px auto 200px;
+        }
+
+        .left {
+            background-color: red;
+        }
+
+        .center {
+            background-color: yellow;
+        }
+
+        .right {
+            background-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left">left</div>
+        <div class="center">center</div>
+        <div class="right">right</div>
+    </div>
+</body>
+
+</html>

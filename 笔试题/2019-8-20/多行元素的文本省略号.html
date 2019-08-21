@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>单行与多行省略号</title>
+    <style>
+        .container{
+            width:300px;
+            border:1px solid #ccc;
+            padding:10px;
+        }
+
+        .simple{
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .complex{
+            -webkit-line-clamp: 3;  /* 限制一个块元素显示的文本行数 3表示最多显示3行 */
+            display: -webkit-box;  /* 与1结合使用，将对象作为弹性伸缩盒子模型显示 */
+            -webkit-box-orient: vertical; /* 与1结合使用，设置或检索伸缩盒对象的子元素的排列方式 vertical垂直的*/
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        1.单行文本溢出显示省略号
+        2.多行文本溢出显示省略号
+    -->
+    
+    <div class="container">
+        <div class="simple">我是单行文本我是单行文本我是单行文本我是单行文本</div>
+        <div class="simple">我是单行文本我是单行文本我是单行文本我是单行文本</div>
+        <div class="simple">我是单行文本我是单行文本我是单行文本我是单行文本</div>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="complex">我是多行文本我是多行文本我是多行文本我是多行文本我是多行文本我是多行文本我是多行文本我是多行文本我是多行文本我是多行文本我是多行文本我是多行文本我是多行文本我是多行文本</div>
+    </div>
+</body>
+</html>

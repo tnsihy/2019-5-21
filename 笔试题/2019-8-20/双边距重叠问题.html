@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>多边距重叠问题</title>
+    <!-- 
+        两个相邻的外边距都是正数时，折叠结果是它们两者之间较大的值
+        两个相邻的外边距都是负数时，折叠结果是两者绝对值的较大值
+        两个相邻的外边距一正一负时，折叠结果是两者相加的值
+     -->
+    <style>
+        .one {
+            width: 100px;
+            height: 100px;
+            border:1px solid red;
+            margin-bottom:20px;
+        }
+
+        .two {
+            width: 100px;
+            height: 100px;
+            border:1px solid blue;
+            margin-top:-20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="one"></div>
+    <div class="two"></div>
+</body>
+
+</html>

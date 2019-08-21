@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 
+        1.给center部分包裹一层main
+        2.给main设置margin主动撑开页面 margin:0 200px; 同时设置overflow:hidden使其成为一个BFC height:100%适应高度
+        3.给left和right设置宽度width:200px;  center设置width:100%;
+        4.给container整体设置浮动float:left
+        5.给left设置margin-left:-100%，即向左退一行
+        6.给right设置margin-right:-200px; 即向左退200px 由于left退完之后，right就在left原先的位置
+     -->
+    <style>
+        .container {
+            overflow: hidden;
+        }
+
+        .container>div {
+            position: relative;
+            float: left;
+            height: 100px;
+        }
+
+        .main {
+            height: 100%;
+            margin: 0 200px;
+            background-color: turquoise;
+            overflow: hidden;
+        }
+
+        .left {
+            width:200px;
+            background-color: red;
+            margin-left:-100%;
+        }
+
+        .center {
+            width: 100%;
+            background-color: yellow;
+        }
+
+        .right {
+            width:200px;
+            background-color: blue;
+            margin-left:-200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 优先渲染 -->
+        <div class="center">
+            <div class="main">center</div>
+        </div>
+        <div class="left">left</div>
+        <div class="right">right</div>
+    </div>
+</body>
+
+</html>

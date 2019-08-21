@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 
+        1.给三栏都设置display:table-cell
+        2.给left和right设置宽度200px，center设置宽度100%
+        3.给left和right设置min-width:200px; 确保不会被挤压
+
+        优点：三栏高度统一
+     -->
+    <style>
+        .container>div {
+            display: table-cell;
+        }
+
+        .left {
+            width: 200px;
+            background-color: red;
+            min-width: 200px;
+            height:200px;
+        }
+
+        .center {
+            width: 100%;
+            background-color: yellow;
+        }
+
+        .right {
+            width: 200px;
+            background-color: blue;
+            min-width: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left">left</div>
+        <div class="center">center</div>
+        <div class="right">right</div>
+    </div>
+</body>
+
+</html>
