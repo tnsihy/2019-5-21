@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 
+        闭包指有权访问另一个函数作用域中的变量的函数。
+        
+        闭包有两部分组成：函数，以及创建该函数的环境。
+            环境由闭包创建时在作用域中的任何局部变量组成。
+        
+        理解闭包的关键：外部函数调用之后其变量对象本应该被销毁，但闭包的存在使仍可以访问外部函数的变量对象。
+     -->
+</head>
+
+<body>
+    <script>
+        // 了解闭包
+        function init() {
+            var name = "tnsihy";
+
+            function displayName() {
+                alert(name);
+            }
+            displayName();
+        }
+        init();
+// -----------------------------------------------------
+        
+        // 闭包只能取得包含函数中的任何变量的最后一个值
+        function arrFunc() {
+            var arr = [];
+            for (var i = 0; i < 10; i++) {
+                arr[i] = function () {
+                    // 如果只是arrFunc()这里不会执行哦，等到ArrFunc().map(item=>item())后才执行
+                    return i;
+                };
+            }
+            return arr;
+        }
+        arrFunc(); // arrFunc().map(item=>item())  输出10个10
+
+        //或者
+        function arrFunc() {
+            var arr = [];
+            for (var i = 0; i < 10; i++) {
+                arr[i] = function (i) {
+                    return function () {
+                        return i;
+                    }
+                }(i);
+            }
+            return arr;
+        }
+        arrFunc();
+        console.log(arrFunc().map(item => item()));
+
+// --------------------------------------------------
+
+        // 内存泄漏
+        // 如果闭包的作用域链中包含一个HTML元素，那么意味着该元素无法被销毁。
+        // 所以有必要对元素操作完后进行销毁。
+        function eleFunc() {
+            var element = document.getElementById('someElement');
+            var id = element.id;
+            element.onclick = function () {
+                alert(id);
+            };
+            element = null; //销毁
+        }
+        eleFunc();
+
+// ----------------------------------------------------
+        //闭包的缺陷：
+            // 会增大内存使用量，使用不当会容易造成内存泄漏。
+    </script>
+</body>
+
+</html>

@@ -1,7 +1,11 @@
-for(var i=1;i<=5;i++){
-    (function(j){
-        setTimeout(function timer(){
-            console.log(j);
-        },j*1000);
-    })(i);
+function arrFunc() {
+    var arr = [];
+    for (let i = 0; i < 10; i++) {
+        arr[i] = function () {
+            return i;
+        };
+    }
+    return arr;
 }
+arrFunc();
+arrFunc().map(item=>item());
