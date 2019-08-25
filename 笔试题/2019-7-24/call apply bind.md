@@ -59,7 +59,6 @@ var fun3 = bar.bind(foo);  //f(){ console.log(this.x) }
 fun3();
 
 结果输出
-undefined
 3
 ```
 
