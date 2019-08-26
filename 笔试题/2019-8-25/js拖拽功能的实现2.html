@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML5元素拖拽drag与拖放drop</title>
+    <!-- 
+        拖拽事件包括两类
+            被拖拽元素触发的事件
+            施放目标触发的事件
+
+        1.拖拽元素。被拖拽元素会触发以下事件
+            dragstart（类似mousedown）
+            drag（类似mousemove）
+            dragend（类似mouseup）
+
+        2.目标元素。当拖拽的元素拖到一个目标元素上时，目标元素会触发以下事件
+            dragenter 拖拽元素到目标上就会触发dragenter事件
+            dragover 当拖拽元素在目标元素中，就会持续触发dragover事件
+            dragleave 离开目标元素，触发dragleave事件
+            drop 若施放元素到了目标元素中，就会触发drop事件
+
+        数据交换的对象就是事件对象的属性dataTransfer 
+            dataTransfer的两个核心方法是setData()和getData() 
+            setData()用于设置数据，getData()用语接收数据
+     -->
+    <style>
+        .box1 {
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+
+        .box2 {
+            width: 300px;
+            height: 300px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box1" draggable="true" id="sourse"></div>
+    <br>
+    <div class="box2" id="target"></div>
+
+    <script>
+        window.onload = function () {
+            var sourse = document.getElementById('sourse');
+            var target = document.getElementById('target');
+
+            sourse.ondragstart = function (event) {
+                var event = event || window.event;
+                console.log('开始拖拽');
+                event.dataTransfer.setData('text',event.target.id)
+            }
+
+            target.ondragenter = function () {
+                console.log('进入目标元素');
+            }
+
+            target.ondragover = function (event) {
+                var event = event || window.event;
+                console.log('在目标元素中拖拽');
+                //阻止 冒泡的默认行为
+                event.preventDefault();
+            }
+
+            target.ondragleave = function () {
+                console.log('施放离开目标元素');
+            }
+
+            target.ondrop = function (event) {
+                console.log('施放');
+                var event = event || window.event;
+                var data = event.dataTransfer.getData('text');
+                eventg.target.appendChild(document.getElementById(data));
+            }
+        }
+    </script>
+</body>
+
+</html>
