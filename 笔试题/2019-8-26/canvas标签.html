@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- https://blog.csdn.net/qq_37120167/article/details/80847749 -->
+    <style>
+        .ca {
+            width: 250px;
+            height: 150px;
+            border: 1px solid #008b8b;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="myCanvas-color" class="ca"></canvas>
+    <!-- canvas 线性渐变 -->
+    <canvas id="myCanvas-grandient" class="ca"></canvas>
+    <!-- canvas 放射性渐变 -->
+    <canvas id="myCanvas-radial" class="ca"></canvas>
+    <!-- 绘制图形简单案例 -->
+    <canvas id="myCanvas-line" class="ca"></canvas>
+    <canvas id="myCanvas-star" class="ca"></canvas>
+    <script>
+        var cvsc = document.getElementById('myCanvas-color');
+        // 获取绘图2D环境
+        var ctxc = cvsc.getContext('2d');
+        ctxc.fillStyle = "#008b8b";
+        ctxc.fillRect(20, 20, 200, 100);
+
+        /**
+         * fillStyle属性设置或返回用于填充绘画的颜色、渐变或图案。
+         *      color 指示绘图填充色的 CSS 颜色值。默认值是 #000000。
+         *      gradient 用于填充绘图的渐变对象（线性或 放射性）。
+         *      pattern 用于填充绘图的pattern对象。
+         */
+        // --------------------------------------------------------------
+
+        var cvsg = document.getElementById('myCanvas-grandient');
+        var ctxg = cvsg.getContext('2d');
+        var grd = ctxg.createLinearGradient(0, 0, 0, 130);
+        grd.addColorStop(0, "#008b8b");
+        grd.addColorStop(0.2, "#458B74");
+        grd.addColorStop(0.4, "#458B74");
+        grd.addColorStop(0.6, "#00EE76");
+        grd.addColorStop(0.8, "#FFD700");
+        grd.addColorStop(1, "#CD9B1D");
+
+        ctxg.fillStyle=grd;
+        ctxg.fillRect(20,20,200,100);
+        // -------------------------------------------------------------
+
+        var cvsr = document.getElementById('myCanvas-radial');
+        var ctxr = cvsr.getContext('2d');
+        var grd = ctxr.createRadialGradient(75,50,5,100,60,90);
+        grd.addColorStop(0, "#008b8b");
+        grd.addColorStop(0.2, "#458B74");
+        grd.addColorStop(0.4, "#458B74");
+        grd.addColorStop(0.6, "#00EE76");
+        grd.addColorStop(0.8, "#FFD700");
+        grd.addColorStop(1, "#CD9B1D");
+
+        ctxr.fillStyle = grd;
+        ctxr.fillRect(20,20,200,100);
+        // -------------------------------------------------------------
+
+        var cvs = document.getElementById('myCanvas-line');
+        var ctxl = cvs.getContext('2d');
+        ctxl.moveTo(20,20);
+        ctxl.lineTo(20,120);
+        ctxl.lineTo(120,120);
+        ctxl.lineTo(120,20);
+        ctxl.lineTo(20,20);
+        ctxl.stroke();
+        // -------------------------------------------------------------
+
+        var star = document.getElementById('myCanvas-star');
+        var starH = star.getContext('2d');
+        starH.moveTo(51,12);
+        starH.lineTo(24,95);
+        starH.lineTo(92,45);
+        starH.lineTo(8,45);
+        starH.lineTo(76,95);
+        starH.lineTo(51,12);
+        starH.stroke();
+    </script>
+</body>
+
+</html>

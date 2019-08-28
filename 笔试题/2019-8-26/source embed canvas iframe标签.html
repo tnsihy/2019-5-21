@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        <source> HTML5新标签
+            拥有两份源文件的音频播放器
+            为媒介元素（比如 <video> 和 <audio>）定义媒介资源
+        
+        <embed> HTML5新标签
+            定义嵌入的内容，比如插件
+        
+        <canvas> HTML5新标签
+            定义图形，比如图表和其他图像
+            只是图形容器，必须用脚本绘制图形
+
+        <iframe> HTML5新标签
+    -->
+        <audio>
+            <source src="/i/horse.ogg" type="audio/ogg"/>
+            <source src="/i/horse.mp3" type="audio/mpeg"/>
+        </audio>
+
+        <embed src="helloworld.swf" />
+
+        <canvas id="myCanvas"></canvas>
+        <script>
+            var canvas = document.getElementById('myCanvas');
+            var ctx = canvas.getContext('2d');
+            ctx.fillStyle = 'red';
+            ctx.fillRect(0,0,80,100);
+        </script>
+
+        <iframe src="***.jpg" frameborder="0"></iframe>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .parent1 {
+            height: 40px;
+            border: 10px solid rgba(255, 0, 0, 1);
+            background: #000;
+        }
+
+        .parent2 {
+            height: 40px;
+            border: 10px solid rgba(255, 0, 0, 0.4);
+            background: #000;
+        }
+
+        .parent3 {
+            height: 150px;
+            border: 10px solid rgba(255, 0, 0, 1);
+            background: #000;
+        }
+
+        .span3 {
+            color: #fff;
+            margin-left: -10px;
+        }
+
+        .child3 {
+            width: 80px;
+            height: 50px;
+            background: green;
+            margin-left: -10px;
+            margin-top: -10px;
+        }
+
+        .float3 {
+            width: 80px;
+            height: 50px;
+            background: blue;
+            float: left;
+            margin-top: -60px;
+        }
+
+        .relative3 {
+            width: 80px;
+            height: 50px;
+            background: yellow;
+            position: relative;
+            margin-top: -50px;
+        }
+
+        .z-index3 {
+            width: 80px;
+            height: 50px;
+            background: purple;
+            position: absolute;
+            z-index: 1;
+            margin-top: -40px;
+        }
+
+        .parent4 {
+            height: 200px;
+            border: 10px solid red;
+            background: black;
+            padding: 10px;
+        }
+
+        .a,
+        .b {
+            border: 1px solid red;
+            width: 200px;
+            height: 100px;
+            background: green;
+        }
+
+        .aaa,
+        .bbb {
+            background: yellow;
+            z-index: 0;
+        }
+
+        .aaa {
+            z-index: 2;
+        }
+
+        .bbb {
+            z-index: 1;
+            margin-top: -90px;
+        }
+
+        .relative4 {
+            position: relative;
+        }
+
+        /* 堆叠上下文 */
+        .parent {
+            width: 100px;
+            height: 100px;
+            border: 10px solid red;
+            position: relative;
+            background: rgba(0, 255, 0, 0.4);
+            z-index: -1;
+        }
+
+        .relative {
+            width: 30px;
+            height: 30px;
+            background: orange;
+            position: absolute;
+            left: 50px;
+            z-index:-1;
+        }
+
+        .absolute {
+            width: 40px;
+            height: 40px;
+            background: black;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="parent1"></div>
+    <div class="parent2"></div>
+    <!-- 由上面可得出border的堆叠顺序要比background要高 -->
+    <hr>
+
+    <div class="parent3">
+        <span class="span3">内联元素</span>
+        <div class="child3"></div>
+        <div class="float3"></div>
+        <div class="relative3"></div>
+        <div class="z-index3"></div>
+    </div>
+    <hr>
+    <!-- 由上面可得出内联元素和块级元素的堆叠顺序都高于background，
+        通过margin-left:-10px也可得出高于border
+        通过margin-top:-10px 也可得出内联元素高于块级元素
+    -->
+    <!-- ★★★ 内联元素 > 块级元素 > border > background -->
+    <!-- 
+        接下来是浮动元素：
+            由margin-top:-60px可得出内联元素高于浮动元素 浮动元素又高于块级元素
+        ★★★ 内联元素 > 浮动元素 > 块级元素 > border > background
+
+        接下来是定位（position:relative 和 position:absolute）元素
+            由margin-top:-50px可得出 浮动元素高于内联元素 换成position:absolute也是一样
+        ★★★ 定位元素 > 内联元素 > 浮动元素 > 块级元素 > border > background
+
+        接下来是z-index
+            z-index生效是该元素的position属性是非static的元素
+        
+        ★★★ 普通块级元素中，z轴元素的堆叠顺序如下：
+            正z-index > 定位元素 > 内联元素 > 浮动元素 > 块级元素 > border > background > 负z-index
+    -->
+
+    <!-- 
+        堆叠上下文 :
+                如果一个元素含有层叠上下文，我们可以理解为这个元素在z轴上就“高人一等”。
+            https://segmentfault.com/a/1190000016656270
+            https://www.zhangxinxu.com/wordpress/2016/01/understand-css-stacking-context-order-z-index/
+        文档中的层叠上下文由满足以下任意一个条件的元素组成：
+            根元素HTML
+            z-index值不为auto的绝对/相对定位
+            z-index值不为auto的flex项目，即父元素display:flex|inline-flex
+            opacity属性值小于1的元素
+            transform属性值不为none的元素
+            mix-blend-mode属性值不为normal的元素
+            filter值不为none的元素
+            perspective值不为none的元素
+            isolation属性被设置为isloate的元素
+            position:fixed
+            在will-change中指定了任意CSS属性，即便你没有直接指定这些属性的值
+            -webkit-overflow-scrolling属性被设置touch的元素
+
+        层叠上下文中，z轴元素的堆叠顺序如下：
+            正z-index > 定位元素 > 内联元素 > 浮动元素 > 块级元素 > 负z-index > border > background
+        当元素发生层叠时，遵循以下两个准则：
+            1.谁大谁上。在同一个层叠上下文领域，层叠水平值大的那一个覆盖小的那一个。
+            2.后来居上。当元素的层叠水平一致、层叠顺序相同的时候，在DOM流中处于后面的元素会覆盖前面的元素。
+    -->
+
+</body>
+
+</html>
