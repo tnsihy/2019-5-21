@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <img src="01.jpg" alt="">
+    <script>
+        var mybody = document.getElementsByTagName('body')[0];
+        var h = document.documentElement.clientHeight;
+        mybody.style.height = h + 'px';
+
+        var startX, startY, moveEndX, moveEndY, X, Y;
+        mybody.addEventListener('touchstart', function (e) {
+            startX = e.touches[0].pageX;
+            startY = e.touches[0].pageY;
+        }, false);
+
+        mybody.addEventListener('touchmove', function (e) {
+            moveEndX = e.changedTouches[0].pageX;
+            moveEndY = e.changedTouches[0].pageY;
+            X = moveEndX - startX;
+            Y = moveEndY - startY;
+            if (X > 0 && Math.abs(X) > Math.abs(Y)) {
+                console.log('向右滑动');
+            } else if (X < 0 && Math.abs(X) > Math.abs(Y)) {
+                console.log('向左滑动');
+            } else if (Y > 0 && Math.abs(Y) > Math.abs(X)) {
+                console.log('向下滑动');
+            } else if (Y < 0 && Math.abs(Y) > Math.abs(X)) {
+                console.log('向上滑动')
+            } else {
+                console.log('没滑动');
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 用纯CSS手写一个动画效果：
+            一个盒子从边缘淡入进来，
+            进入到页面正中间转一圈
+            然后离开页面
+            循环且重复  
+    -->
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .container{
+            position: relative;
+        }
+
+        .demo {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top:0;
+            animation-name:myfirst;
+            animation-duration: 10s;
+            animation-timing-function:linear;
+            animation-iteration-count: infinite;
+            background: green;
+        }
+
+        @keyframes myfirst {
+            0% {
+                left:0%;
+                margin-left:-100px;
+                opacity: 0;
+            }
+            48%{
+                left:50%;
+                transform: rotate(0deg);
+            }
+
+            50%{
+                left:50%;
+                transform: rotate(180deg);           
+            }
+            
+            52% {
+                left:50%;
+                transform: rotate(360deg);
+            }
+
+            100%{
+                left:100%;
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="demo"></div>
+    </div>
+</body>
+
+</html>

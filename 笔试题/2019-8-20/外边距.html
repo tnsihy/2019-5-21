@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 
+        在什么场景下会出现外边距合并?如何合并?如何不让相邻元素外边距合并?
+     -->
+    <style>
+        .one {
+            width: 100px;
+            height: 100px;
+            border: 1px solid red;
+            margin-bottom: 20px;
+        }
+
+        .two {
+            width: 100px;
+            height: 100px;
+            border: 1px solid blue;
+            margin-top: 20px;
+            /* display: inline-block; */
+        }
+
+        .parent {
+            width: 200px;
+            height: 200px;
+            background: yellow;
+            margin-top: 20px;
+        }
+
+        .child {
+            width: 100px;
+            height: 100px;
+            background: green;
+            margin-top: 20px;
+        }
+
+        .none {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+        1.兄弟元素合并
+        当一个元素出现在另一个元素上面时，第一个元素的下外边距与第二个元素的上外边距会发生合并。
+        解决办法：
+        设置浮动display:inline-block或者使其父元素均形成BFC可防止边距合并（如overflow:hidden）
+    -->
+    <div class="one"></div>
+    <div class="two"></div>
+    <hr>
+
+    <!-- 
+        2.父子间合并 
+        当一个元素包含在另一个元素中时（假设没有内边距或边框把外边距分隔开），它们的上和/或下外边距也会发生合并。
+        解决办法：
+        可以给父元素设置border或padding属性来防止合并。
+    -->
+    <div class="parent">
+        <div class="child"></div>
+    </div>
+    <hr>
+
+    <!-- 
+        3.空元素
+        假设有一个空元素，它有外边距，但是没有边框或填充。在这种情况下，上外边距与下外边距就碰到了一起，它们会发生合并。
+        设置border或padding属性或overflow：hidden等（形成BFC）来防止合并。
+    -->
+    <div class="none"></div>
+    <hr>
+</body>
+
+</html>

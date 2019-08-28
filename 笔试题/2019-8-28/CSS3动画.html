@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 
+        @keyframes规则用于创建动画。
+    -->
+    <style>
+        .demo1{
+            width:100px;
+            height:100px;
+            background: red;
+            animation: myfirst 5s;
+            -moz-animation: myfirst 5s;
+            -webkit-animation: myfirst 5s;
+            -o-animation: myfirst 5s;
+        }
+        @keyframes myfirst{
+            from{background: red;}
+            to{background: green;}
+            /* 或者使用百分比
+            0%{}
+            25%{}
+            50%{}
+            100%{}
+             */
+        }
+
+        @-moz-keyframes myfirst{
+            from {background:red;}
+            to {background:green;}
+        }
+
+        @-webkit-keyframes myfirst{
+            from {background:red;}
+            to {background:green;}
+        }
+
+        @-o-keyframes myfirst{
+            from {background:red;}
+            to {background:green;}
+        }
+
+        .demo2{
+            width:100px;
+            height:100px;
+            background: red;
+            animation-name:myfirst;
+            animation-duration: 5s;
+            animation-timing-function:linear;
+            animation-delay: 2s;
+            animation-iteration-count:infinite;
+            animation-play-state:running;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="demo1"></div>
+    <hr>
+    <!-- 
+       @keyframes规定动画
+       animation 所有动画属性的简写，除去animation-play-state属性
+       animation-name:规定@keyframes的名称
+       animation-duration:规定动画完成一个周期所需时间，默认为0
+       animation-timing-function:规定动画的速度曲线，默认为ease
+       animation-delay:规定动画何时开始，默认为0
+       animation-iteration-count:规定动画被播放的次数，默认为1
+       animation-direction:规定动画是否在下一周期逆向地播放。默认是 "normal"
+       animation-play-state:规定动画是否正在运行或暂停。默认是 "running"
+       animation-fill-mode:规定对象动画时间之外的状态。
+     -->
+    <div class="demo2"></div>
+</body>
+</html>

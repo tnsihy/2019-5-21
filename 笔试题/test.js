@@ -1,14 +1,4 @@
-function Animal(name){
-    // 属性
-    this.name = name || 'Animal';
-    // 方法
-    this.sleep = function(){
-        console.log(this.name + '正在睡觉');
-    };
-}
-
-Animal.prototype.eat = function(food){
-    console.log(this.name + '正在吃' + food);
-};
-
-console.log(Animal.prototype.name);
+var a = 1;
+var b = 3;
+var c = 6;
+console.log(++a+b+++c+++--c);

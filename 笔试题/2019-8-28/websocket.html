@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="sse">
+        <a href="javascript:WebSocketTest()">运行WebSocket</a>
+    </div>
+    <script>
+        function WebSocketTest() {
+            if ('WebSocket' in window) {
+                console.log('你的浏览器支持WebSocket');
+
+                // 打开一个websocket
+                var ws = new WebSocket('ws://localhost:8080');
+                ws.onopen = function () {
+                    // websocket已连接上，使用send()发送数据
+                    ws.send('发送数据');
+                    console.log('发送数据中...');
+                }
+                ws.onmessage = function (e) {
+                    var received = e.data;
+                    console.log('数据已接收');
+                }
+                ws.onclose = function () {
+                    console.log('连接已关闭')
+                }
+            }else{
+                console.log('你的浏览器不支持WebSocket')
+            }
+        }
+    </script>
+</body>
+
+</html>
