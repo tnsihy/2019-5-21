@@ -1,4 +1,12 @@
-var a = 1;
-var b = 3;
-var c = 6;
-console.log(++a+b+++c+++--c);
+var name = 'tnsihy';
+function show(){
+    console.log(this);
+    console.log(this.name);
+}
+
+var obj = {
+    name : 'jgchenu',
+    show:show   // 对show方法进行引用
+}
+
+obj.show();

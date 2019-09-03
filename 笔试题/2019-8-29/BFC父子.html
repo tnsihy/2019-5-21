@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 
+        BFC 块格式化上下文（Block Formatting Context）
+
+        一个块格式化上下文由以下之一创建：
+            1.根元素或其他包含它的元素
+            2.浮动元素（float不为none）
+            3.绝对定位元素（元素具有position:absolute或者fixed
+            4.内联块（元素具有display:inline-block）
+            5.表格单元格（元素具有display:table-cell）
+            6.表格标题（元素具有display:table-caption）
+            7.具有overflow且值不是visible的块元素
+            8.display:flow-root
+            9.column-span:all
+            10.一个块格式化上下文包括创建它的元素内部所有内容，除了被包含于创建新的块级格式化上下文的后代元素内的元素。
+        
+        ★★ 定位和清除浮动的样式规则只适用于处于同一块格式化上下文内的元素。
+        BFC的作用： 1.使浮动元素不会乱跑。  2.和浮动元素产生边界
+     -->
+    <style>
+        .father {
+            border: 10px solid red;
+            min-height: 20px;
+            float: left;
+            /* position:absolute; */
+            /* position:fixed; */
+            /* display: inline-block; */
+            /* display: table-cell; */
+            /* display: table-caption; */
+            /* overflow: hidden; 只要不是visible*/
+            /* display:flow-root; 和浮动元素产生边界*/
+            /* column-span:all; */
+        }
+
+        .son {
+            background: grey;
+            height: 100px;
+            width: 500px;
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+    <p>爸爸管儿子 用BFC（父）包住浮动元素（儿）</p>
+    <div class="father">
+        <div class="son"></div>
+    </div>
+</body>
+
+</html>
