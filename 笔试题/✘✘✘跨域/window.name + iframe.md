@@ -1,0 +1,1 @@
+通过iframe的src属性由外域转向本地域，跨域数据即由iframe的window.name从外域传递到本地域。

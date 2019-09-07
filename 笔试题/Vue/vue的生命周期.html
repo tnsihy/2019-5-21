@@ -7,6 +7,17 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <!-- 
+        每个 Vue 实例在被创建时都要经过一系列的初始化过程。  
+        例如，需要设置数据监听、编译模板、将实例挂载到 DOM 并在数据变化时更新 DOM 等。  
+        同时在这个过程中也会`运行一些叫做生命周期钩子的函数`，这给了用户在不同阶段添加自己的代码的机会。  
+        ```JS
+        var vm = new Vue({
+            // 选项
+        })
+        ```
+        参考 https://segmentfault.com/a/1190000014640577
+     -->
 </head>
 
 <body>
@@ -18,49 +29,49 @@
     <script>
         // 1.开始创建一个Vue实例
         var vm = new Vue({
-            el:"#app",
-            data:{
-                message:true
+            el: "#app",
+            data: {
+                message: true
             },
-            methods:{
-                handleChange(){
+            methods: {
+                handleChange() {
                     this.message = !this.message
                 },
-                handleDes(){
+                handleDes() {
                     this.$destroy();
                 }
             },
             // beforeCreate() ---> data和methods数据还未初始化
-            beforeCreate(){
+            beforeCreate() {
                 console.log("beforeCreate");
             },
             // created() ---> data和methods数据都已经初始化好了，如果要操作data数据最早只能在created()中操作
-            created(){
+            created() {
                 console.log("created");
             },
             // 2.开始编辑模板，渲染为DOM。还未挂载
-            beforeMount(){
+            beforeMount() {
                 console.log("beforeMount");
             },
-            mounted(){
+            mounted() {
                 console.log("mounted");
             },
             // 3.进行运行阶段
             // beforeUpdate() 页面尚未和最新的数据保持同步
-            beforeUpdate(){
+            beforeUpdate() {
                 console.log("beforeUpdate");
             },
             // updated() 页面数据最新，保持同步
-            updated(){
+            updated() {
                 console.log("updated");
             },
             // 4.进入销毁阶段
             // beforeDestroy() 还未真正执行销毁过程
-            beforeDestroy(){
+            beforeDestroy() {
                 console.log("beforeDestroy");
             },
             // destroyed 组件被完全销毁 像数据 方法 指令 过滤器 都不可用
-            destroyed(){
+            destroyed() {
                 console.log("destroyed");
             }
         })
