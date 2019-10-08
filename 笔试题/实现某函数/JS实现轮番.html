@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 200px;
+            height: 200px;
+            margin: 20px 300px;
+            border: 1px solid black;
+            /* padding:20px; */
+            position: relative;
+            /* overflow: hidden; */
+        }
+
+        .content {
+            width: 800px;
+            height: 200px;
+            /* 清除图片之间间隔 */
+            font-size: 0;
+        }
+
+        a {
+            text-decoration: none;
+            font-size: 20px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        #prev {
+            position: absolute;
+            top: 45%;
+        }
+
+        #next {
+            position: absolute;
+            top: 45%;
+            left: 90%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="content" id="list">
+            <img src="images/01.jpg">
+            <img src="images/02.jpg">
+            <img src="images/03.jpg">
+            <img src="images/04.jpg">
+        </div>
+        <a href="javascript:void(0)" id="prev">&lt;</a>
+        <a href="javascript:void(0)" id="next">&gt;</a>
+    </div>
+    <script>
+        window.onload = function () {
+            var list = document.getElementById("list");
+            var prev = document.getElementById("prev");
+            var next = document.getElementById("next");
+
+            var listStyle = list.style;
+            var leftNum = 0,
+                rightNum = 0;
+            prev.addEventListener("click",()=>{
+                if(leftNum < 3){
+                    leftNum ++;
+                }else{
+                    leftNum = 0;
+                }
+                listStyle.marginLeft = 200*leftNum + "px";
+            })
+
+            next.addEventListener("click", () => {
+                if (rightNum < 3) {
+                    rightNum++;
+                } else {
+                    rightNum = 0;
+                }
+                listStyle.marginLeft = -200 * rightNum + "px";
+            })
+        }
+    </script>
+</body>
+
+</html>

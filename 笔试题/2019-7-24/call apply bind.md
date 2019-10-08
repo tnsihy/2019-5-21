@@ -36,6 +36,25 @@ fun1.call(obj);
 结果输出Object
 ```
 
+```JS
+var obj = {
+    name:'tnsihy';
+}
+function fn(num1,num2){
+    console.log(this);
+};
+
+fn(100,200); // this->window num1=100 num2=200
+fn.call(100,200); // this->100 num1=200 num2=undefined
+fn.call(obj,100); // this->obj num1=100
+
+fn.call(); // this->window  使用严格模式this->undefined
+fn.call(null); // this->window  使用严格模式this->null
+fn.call(undefined) // this->window  使用严格模式this->undefined
+以上为非严格模式下的情况
+```
+使用严格模式：` "use strict" ` ↑↑
+
 2.apply()  
 `fun.apply(thisArg[,argsArray])`
 ```

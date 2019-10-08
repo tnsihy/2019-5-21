@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            margin: 20px 200px;
+            position: relative;
+            width: 200px;
+            height: 200px;
+            font-size: 0;
+            border: 3px solid black;
+            /* overflow: hidden; */
+        }
+
+        #list {
+            position: absolute;
+            width: 1200px;
+            height: 200px;
+        }
+
+        .arrow {
+            position: absolute;
+            font-size: 20px;
+            width: 20px;
+            height: 20px;
+            line-height: 17px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, .3);
+            color: #fff;
+            top: 43%;
+        }
+
+        .arrow:hover {
+            background-color: rgba(0, 0, 0, .7);
+        }
+
+        #prev {
+            left: 2%;
+        }
+
+        #next {
+            left: 88%;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="list">
+            <img src="images/04.jpg" alt="1">
+            <img src="images/01.jpg" alt="1">
+            <img src="images/02.jpg" alt="2">
+            <img src="images/03.jpg" alt="3">
+            <img src="images/04.jpg" alt="4">
+            <img src="images/01.jpg" alt="4">
+        </div>
+        <div id="buttons">
+            <span index="1" class="on"></span>
+            <span index="2"></span>
+            <span index="3"></span>
+            <span index="4"></span>
+        </div>
+        <a href="javascript:void(0)" id="prev" class="arrow">&lt;</a>
+        <a href="javascript:void(0)" id="next" class="arrow">&gt;</a>
+    </div>
+    <script>
+        window.onload = function () {
+            var list = document.getElementById("list");
+            var prev = document.getElementById("prev");
+            var next = document.getElementById("next");
+
+            function animate(offset){
+                var newLeft = parseInt(list.style.left) + offset;
+                list.style.left = newLeft + 'px';
+                // ??? 获取不到
+                console.log(list.style.left);
+            }
+
+            prev.onclick = function () {
+                animate(200);
+            }
+            next.onclick = function () {
+                animate(-200);
+            }
+        }
+    </script>
+</body>
+
+</html>
